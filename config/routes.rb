@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :reviews
   resources :order_items
-  root 'welcome/index'
+  root 'welcome#index'
   resources :orders
   resources :products
   resources :categories
