@@ -1,13 +1,16 @@
 Rails.application.routes.draw do
+
   root 'welcome#index'
-  resources :reviews
-  resources :order_items
-  root 'welcome#index'
-  resources :order_items
-  resources :orders
-  resources :products
+
   resources :categories
-  resources :users
+  resources :users do
+    resources :orders do
+      resources :order_items
+    end
+    resources :products do
+      resources :reviews
+    end
+  end
 
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
