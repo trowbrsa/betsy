@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
-  root 'welcome/index'
+  root 'welcome#index'
+  resources :reviews
+  resources :order_items
   resources :order_items
   resources :orders
   resources :products
   resources :categories
   resources :users
 
-  # get 'login/' => 'sessions#new', as: :login
-  # post 'login/' => 'sessions#create'
-  # delete 'logout/' => 'sessions#destroy', as: :logout
+  get 'login/' => 'sessions#new', as: :login
+  post 'login/' => 'sessions#create'
+  delete 'logout/' => 'sessions#destroy', as: :logout
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
