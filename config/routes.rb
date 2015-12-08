@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'welcome/index'
+
   resources :orders
   resources :products
   resources :categories
