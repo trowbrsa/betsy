@@ -2,6 +2,7 @@ class OrderItemsController < ApplicationController
   before_action :set_order_item, only: [:show, :edit, :update, :destroy]
 
   def index
+    @user = User.find(params[:user_id])
     @order_items = OrderItem.all
   end
 
