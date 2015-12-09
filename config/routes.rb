@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'products/' => 'products#index', as: :products
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
   delete 'logout/' => 'sessions#destroy', as: :logout

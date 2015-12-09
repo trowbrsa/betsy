@@ -33,13 +33,9 @@
           <% end %>
         </td>
         <td><%= link_to 'Show', user_product_path(product.id, product.user_id) %></td>
-        <td><%= link_to 'Edit', edit_user_product_path(product.id, product.user_id) %></td>
-        <td><%= link_to 'Destroy', user_product_path(product.id, product.user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Product',  new_user_product_path %>
