@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.all
+    @product = Product.find(params[:product_id])
   end
 
 
