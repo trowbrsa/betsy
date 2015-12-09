@@ -26,9 +26,9 @@
         <td><%= product.stock %></td>
         <td><%= product.description %></td>
         <td><%= product.active %></td>
-        <td><%= link_to 'Show', user_product_path(product.id, product.user.id) %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_product_path(product.id, product.user_id) %></td>
+        <td><%= link_to 'Edit', edit_user_product_path(product.id, product.user_id) %></td>
+        <td><%= link_to 'Destroy', user_product_path(product.id, product.user_id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product',  new_user_product_path %>
