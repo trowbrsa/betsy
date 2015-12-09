@@ -15,3 +15,10 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).ready(function() {
+  var thumb = document.getElementsByClassName('thumbnail')[0];
+  var width = thumb.clientWidth;
+  console.log(width);
+  $('.img-container').css({ "height": width+"px" });
+});
