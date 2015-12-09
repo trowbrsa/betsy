@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root 'welcome#index'
+  get "/users/:id/products" => "users#products"
+
 
   resources :categories
   resources :users do

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :products]
 
 
   def index
@@ -12,6 +12,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def products
+    @products = @user.products
+    
   end
 
 
