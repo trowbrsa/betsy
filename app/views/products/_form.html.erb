@@ -1,3 +1,4 @@
+
 <%= form_for [@product.user, @product] do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
@@ -12,34 +13,28 @@
   <% end %>
 
   <div class="field">
+
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
+
     <%= f.label :price %><br>
     <%= f.number_field :price %>
-  </div>
-  <div class="field">
+
     <%= f.label :user_id %><br>
     <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
+
     <%= f.label :photo_url %><br>
     <%= f.text_field :photo_url %>
-  </div>
-  <div class="field">
-    <%= f.label :stock %><br>
+
+    <%= f.label :stock %>
     <%= f.number_field :stock %>
-  </div>
-  <div class="field">
+
     <%= f.label :description %><br>
     <%= f.text_field :description %>
-  </div>
-  <div class="field">
+
     <%= f.label :active %><br>
     <%= f.check_box :active %>
-  </div>
-  <div class="actions">
+
     <%= f.submit %>
   </div>
 <% end %>
