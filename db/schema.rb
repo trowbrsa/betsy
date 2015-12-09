@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20151209220657) do
     t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean  "shipped", default: false
+    t.boolean  "shipped"
   end
 
   create_table "orders", force: :cascade do |t|
