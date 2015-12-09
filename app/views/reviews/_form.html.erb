@@ -1,16 +1,12 @@
-<%= form_for [@product.user, @product, @review] do |f| %>
-  <% if @review.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
-
-      <ul>
-      <% @review.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<ul>
+  <% @review.errors.each do |column, message| %>
+    <li>
+      <strong><%= column.capitalize %></strong> <%= message %>
+    </li>
   <% end %>
+</ul>
 
+<%= form_for [@product.user, @product, @review] do |f| %>
   <div class="field">
     <%= f.label :rating, "Rating (1-5)" %><br>
     <%= f.number_field :rating %>

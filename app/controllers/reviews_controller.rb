@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :find_review, only: [:show, :edit, :update, :destroy]
-  before_action :find_product, only: [:new, :edit]
+  before_action :find_product, only: [:new, :edit, :create]
 
   def index
     @reviews = Review.all
@@ -21,10 +21,14 @@ class ReviewsController < ApplicationController
 
 
   def create
-    review = Review.create(review_params) do |r|
+    @review = Review.create(review_params) do |r|
       r.product_id = params[:product_id]
     end
-    redirect_to user_product_reviews_path(review.product.user, review.product, review)
+    if @review.save
+      redirect_to user_product_reviews_path(@review.product.user, @review.product, @review)
+    else
+      render :new
+    end
   end
 
 
