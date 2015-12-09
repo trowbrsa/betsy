@@ -11,10 +11,12 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @order = Order.new
   end
 
   def edit
+    @user = User.find(params[:user_id])
   end
 
 
@@ -23,9 +25,9 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        redirect_to user_orders_path
       else
-        format.html { render :new }
+        render "new"
       end
     end
   end
