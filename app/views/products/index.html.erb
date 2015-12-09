@@ -11,7 +11,7 @@
       <th>Photo url</th>
       <th>Stock</th>
       <th>Description</th>
-      <th>Active</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,7 +25,13 @@
         <td><%= product.photo_url %></td>
         <td><%= product.stock %></td>
         <td><%= product.description %></td>
-        <td><%= product.active %></td>
+        <td>
+          <% if product.active %>
+            Active
+          <% else %>
+            Retired
+          <% end %>
+        </td>
         <td><%= link_to 'Show', user_product_path(product.id, product.user_id) %></td>
 
       </tr>
