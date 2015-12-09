@@ -30,9 +30,9 @@
         <td><%= order.cc_exp %></td>
         <td><%= order.cc_cvv %></td>
         <td><%= order.cc_name %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_order_path(order.user_id, order.id %></td>
+        <td><%= link_to 'Edit', edit_user_order(order.user_id, order.id) %></td>
+        <td><%= link_to 'Destroy', user_order_path(order.user_id, order.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to 'New Order', new_user_order_path %>
