@@ -22,3 +22,10 @@ $(document).ready(function() {
   console.log(width);
   $('.img-container').css({ "height": width+"px" });
 });
+
+$(window).resize(function() {
+  var thumb = document.getElementsByClassName('thumbnail')[0];
+  var width = thumb.clientWidth;
+  console.log(width);
+  $('.img-container').css({ "height": width+"px" });
+});
