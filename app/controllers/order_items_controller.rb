@@ -7,13 +7,16 @@ class OrderItemsController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:user_id])
   end
 
   def new
     @order_item = OrderItem.new
+    @user = User.find(params[:user_id])
   end
 
   def edit
+    @user = User.find(params[:user_id])
   end
 
   def create
