@@ -1,12 +1,4 @@
 <%= form_for(@order_item) do |f| %>
-  <!-- <% if @order_item.errors.any? %>
-      <ul>
-      <% @order_item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-  <% end %> -->
-
   <div class="field">
     <%= f.label :product_id %><br>
     <%= f.number_field :product_id %>
