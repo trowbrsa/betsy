@@ -8,10 +8,11 @@ class OrdersController < ApplicationController
 
 
   def show
+    @user = User.find(params[:user_id])
   end
 
   def new
-    @user = User.find(params[:user_id])
+    c
     @order = Order.new
   end
 
