@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
 
   def index
     @reviews = Review.all
+    @product = Product.find(params[:product_id])
   end
 
 
@@ -56,7 +57,7 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(:review).permit(:rating, :product_id, :description)
+      params.require(:review).permit(:rating, :description)
     end
 
     def set_user
