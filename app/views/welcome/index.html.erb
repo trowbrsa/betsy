@@ -5,43 +5,39 @@
   <h2 class="text-center">Find the Best Products for Fun Water Times</h2>
   <%= link_to "Browse All Products", products_path, class: "text-center" %>
   <hr>
-  <% count = 0 %>
-  <% @products.each do |product| %>
-  <% if count % 4 == 0 %>
+  <% @products.to_ary.in_groups_of(4, false) do |group| %>
     <div class="row">
-  <% end %>
-    <div class="col-sm-3 col-lg-3 col-md-3">
-      <div class="thumbnail">
-        <div class="img-container">
-        <%= image_tag product.photo_url, alt: "product photo" %>
+      <% group.each do |product| %>
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="thumbnail">
+            <div class="img-container">
+            <%= image_tag product.photo_url, alt: "product photo" %>
+            </div>
+              <div class="caption">
+                  <h5 class="pull-right"><%= dollar_price(product.price) %></h4>
+                  <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
+                  </h4>
+                  <p class="description">
+                    <% if !product.description.nil? %>
+                      <%= product.description %>
+                    <% else %>
+                      <br>
+                    <% end %>
+                  </p>
+              </div>
+              <div class="ratings">
+                <p class="pull-right"><%= pluralize(product.reviews.count, "Review") %></p>
+                <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                </p>
+              </div>
+          </div>
         </div>
-          <div class="caption">
-              <h5 class="pull-right"><%= dollar_price(product.price) %></h4>
-              <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
-              </h4>
-              <p class="description">
-                <% if !product.description.nil? %>
-                  <%= product.description %>
-                <% else %>
-                  <br>
-                <% end %>
-              </p>
-          </div>
-          <div class="ratings">
-            <p class="pull-right"><%= pluralize(product.reviews.count, "Review") %></p>
-            <p>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-            </p>
-          </div>
-      </div>
+      <% end %>
     </div>
-  <% count += 1 %>
-  <% if count % 4 == 0 %>
-    </div>
-  <% end %>
   <% end %>
 </div>
