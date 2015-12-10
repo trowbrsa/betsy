@@ -31,5 +31,18 @@ RSpec.describe Product, type: :model do
       expect(sample_product).to_not be_valid
     end
   end
+  describe "review methods" do
+    let(:r1) {
+      Review.create(rating: 3)
+    }
+    let(:r2) {
+      Review.create(rating: 4)
+    }
+    it "calculates the correct review statistics" do
+      sample_product.reviews = [r1, r2]
+      expect(sample_product.review_average).to eq(3.5)
+      expect(sample_product.review_rounded).to eq(4)
+    end
+  end
 
 end
