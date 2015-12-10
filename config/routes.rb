@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :orders do
       resources :order_items
     end
-    resources :products, except: :index do
+    resources :products, except: [:index, :destroy] do
       resources :reviews
     end
   end

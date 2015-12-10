@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_user, only: [:new, :edit, :create, :update]
 
   def index
     @products = Product.all.paginate(page: params[:page], per_page: 12)
@@ -12,15 +13,12 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @user = User.find(params[:user_id])
   end
 
   def edit
-    @user = @product.user
   end
 
   def create
-    @user = User.find(params[:user_id])
     @product = Product.create(product_params) do |p|
       p.user_id = @user.id
     end
@@ -33,7 +31,6 @@ class ProductsController < ApplicationController
 
   def update
     @product.update(product_params)
-    @user = @product.user
     if @product.save
       redirect_to user_products_path(@product.user)
     else
@@ -41,17 +38,14 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to user_products_path, notice: 'Product was successfully destroyed.' }
-    end
-  end
-
   private
 
-    def set_product
+    def find_product
       @product = Product.find(params[:id])
+    end
+
+    def find_user
+      @user = User.find(params[:user_id])
     end
 
     def product_params

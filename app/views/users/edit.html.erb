@@ -1,6 +1,6 @@
-<h1>Editing User</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<div class="container">
+  <h1>Update Your Profile</h1>
+  <%= render partial: 'form', locals: { submit_text: "Update My Profile" } %>
+  <br>
+  <%= link_to 'Cancel', @user, class: "btn btn-primary" %>
+</div>
