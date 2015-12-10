@@ -24,6 +24,7 @@
                       <br>
                     <% end %>
                   </p>
+                  <p class="num_available"><%= product.stock %> Available</p>
               </div>
               <div class="ratings">
                 <p class="pull-right"><%= pluralize(product.reviews.count, "Review") %></p>
@@ -35,6 +36,7 @@
                     <span class="glyphicon glyphicon-star-empty"></span>
                 </p>
               </div>
+
           </div>
         </div>
       <% end %>
