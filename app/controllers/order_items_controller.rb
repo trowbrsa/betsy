@@ -12,6 +12,7 @@ class OrderItemsController < ApplicationController
 
   def new
     @order_item = OrderItem.new
+    @order = Order.find(params[:order_id])
     @user = User.find(params[:user_id])
   end
 
@@ -20,9 +21,11 @@ class OrderItemsController < ApplicationController
   end
 
   def create
+    @user = User.find(params[:user_id])
+    @order = Order.find(params[:order_id])
     @order_item = OrderItem.new(order_item_params)
       if @order_item.save
-        redirect_to user_order_order_items_path
+        redirect_to user_order_order_items_path(@user,@order.id)
       else
         render "new"
       end
