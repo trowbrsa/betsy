@@ -12,18 +12,23 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @user = User.find(params[:user_id])
   end
 
   def edit
+    @user = User.find(params[:user_id])
   end
 
   def create
-    @product = Product.new(product_params)
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    @user = User.find(params[:user_id])
+    @product = Product.create(product_params) do |p|
+      p.user_id = @user.id
+    end
+    if @product.save
+      redirect_to user_products_path(@product.user)
+    else
+      render :new
+    end
   end
 
   def update
@@ -46,6 +51,6 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :price, :user_id, :photo_url, :stock, :description, :active)
+      params.require(:product).permit(:name, :price, :photo_url, :stock, :description, :active)
     end
 end

@@ -5,7 +5,6 @@
     <tr>
       <th>Name</th>
       <th>Price</th>
-      <th>User</th>
       <th>Photo url</th>
       <th>Stock</th>
       <th>Description</th>
@@ -19,7 +18,6 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.price %></td>
-        <td><%= product.name %></td>
         <td><%= product.photo_url %></td>
         <td><%= product.stock %></td>
         <td><%= product.description %></td>
@@ -30,7 +28,7 @@
             Retired
           <% end %>
         </td>
-        <td><%= link_to 'Show', user_product_path(product.id, product.user_id) %></td>
+        <td><%= link_to 'Show', user_product_path(product.user_id, product.id) %></td>
 
       </tr>
     <% end %>
