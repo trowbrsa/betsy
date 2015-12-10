@@ -28,7 +28,12 @@
 
     <%= f.label :active %>
     <%= f.check_box :active %>
-
+    <br>
+    <%= f.label "Categories:" %>
+    <% @categories.each do |c| %>
+      <%= check_box_tag "categories[]", c.id, @product.categories.include?(c) %>
+      <%= label_tag c.name %>
+    <% end %>
     <%= f.submit %>
   </div>
 <% end %>

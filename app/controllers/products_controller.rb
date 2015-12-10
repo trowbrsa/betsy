@@ -13,14 +13,19 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @categories = Category.all
   end
 
   def edit
+    @categories = Category.all
+    @product_categories = @product.categories
   end
 
   def create
+    @categories = Category.all
     @product = Product.create(product_params) do |p|
       p.user_id = @user.id
+      p.categories = Category.find(params[:categories])
     end
     if @product.save
       redirect_to user_products_path(@product.user)
@@ -31,6 +36,8 @@ class ProductsController < ApplicationController
 
   def update
     @product.update(product_params)
+    @product.categories = Category.find(params[:categories])
+    @product.save
     if @product.save
       redirect_to user_products_path(@product.user)
     else
