@@ -18,6 +18,8 @@ class OrderItemsController < ApplicationController
 
   def edit
     @user = User.find(params[:user_id])
+    @order = Order.find(params[:order_id])
+    @user = User.find(params[:user_id])
   end
 
   def create
@@ -37,8 +39,10 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:user_id])
+    @order = Order.find(params[:order_id])
     @order_item.destroy
-    redirect_to user_order_order_items_path
+    redirect_to user_order_order_items_path(@user, @order)
   end
 
   private
