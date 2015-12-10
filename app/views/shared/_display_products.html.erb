@@ -22,11 +22,12 @@
             <div class="ratings">
               <p class="pull-right"><%= pluralize(product.reviews.count, "Review") %></p>
               <p>
+                <% product.review_rounded.times do %>
                   <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
-                  <span class="glyphicon glyphicon-star"></span>
+                <% end %>
+                <% (5 - product.review_rounded).times do %>
                   <span class="glyphicon glyphicon-star-empty"></span>
+                <% end %>
               </p>
             </div>
 
