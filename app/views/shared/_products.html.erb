@@ -1,39 +1,34 @@
 <%= will_paginate @products %>
-<p id="notice"><%= notice %></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>User</th>
-      <th>Photo url</th>
-      <th>Stock</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+  <% @products.to_ary.in_groups_of(4, false) do |group| %>
+    <div class="row">
+      <% group.each do |product| %>
+        <div class="col-sm-3 col-lg-3 col-md-3">
+          <div class="thumbnail">
+            <div class="img-container">
+            <%= image_tag product.photo_url, alt: "product photo" %>
+            </div>
+              <div class="caption">
+                  <h5 class="pull-right"><%= dollar_price(product.price) %></h4>
+                  <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
+                  </h4>
+                  <p class="description">
+                    <% if !product.description.nil? %>
+                      <%= product.description %>
+                    <% else %>
+                      <br>
+                    <% end %>
+                  </p>
+                  <p class="num_available"><%= product.stock %> Available</p>
+                  <p class = "pull-left">
+                    <%= link_to "Edit item", edit_user_product_path(product.user.id, product.id) %>
+                  </p>
+                  <p class="pull-right"><%= link_to "View Reviews", user_product_reviews_path(product.user.id, product.id) %></p>
+              </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= product.name %></td>
-        <td><%= product.photo_url %></td>
-        <td><%= product.stock %></td>
-        <td><%= product.description %></td>
-        <td>
-          <% if product.active %>
-            Active
-          <% else %>
-            Retired
-          <% end %>
-        </td>
-        <td><%= link_to 'Show', user_product_path(product.id, product.user_id) %></td>
-
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 <%= will_paginate @products %>
