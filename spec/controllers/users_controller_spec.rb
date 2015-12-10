@@ -136,6 +136,18 @@ RSpec.describe UsersController, type: :controller do
       expect(subject).to render_template "edit"
     end
 
+  end
+
+  describe "DELETE 'destroy'" do
+    let(:user) do
+      User.create(name: "Nemo", username: "Nemo1", email: "nemo@gmail.com", password: "123", password_confirmation: "123")
     end
+
+    it "redirect to index after deleting" do
+      delete :destroy, id: user.id
+      expect(subject).to redirect_to users_path
+    end
+
+  end
 
 end
