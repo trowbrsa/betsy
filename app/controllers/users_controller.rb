@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      format.html { redirect_to @user, notice: 'User was successfully created.' }
+      redirect_to users_path
     else
       render "new"
     end
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        redirect_to users_path
       else
         render "edit"
       end
@@ -57,6 +57,6 @@ class UsersController < ApplicationController
 
 
     def user_params
-      params.require(:user).permit(:username, :email, :password_digest, :name)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :name)
     end
 end
