@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'welcome#index'
-  get "/users/:id/products" => "users#products"
+  get "/users/:id/products" => "users#products", as: :user_products
 
 
   resources :categories
@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :orders do
       resources :order_items
     end
-    resources :products do
+    resources :products, except: :index do
       resources :reviews
     end
   end

@@ -33,6 +33,7 @@
         <td><%= link_to 'Show', user_order_path(@user.id, order.id) %></td>
         <td><%= link_to 'Edit', edit_user_order_path(@user.id, order.id) %></td>
         <td><%= link_to 'Destroy', user_order_path(@user.id, order.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Order items', user_order_order_items_path(@user.id, order.id) %> </td>
       </tr>
     <% end %>
   </tbody>
