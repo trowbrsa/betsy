@@ -1,9 +1,6 @@
-
-<%= form_for [@product.user, @product] do |f| %>
+<%= form_for [@user, @product] do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
       <ul>
       <% @product.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -14,25 +11,22 @@
 
   <div class="field">
 
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
 
-    <%= f.label :price %><br>
+    <%= f.label :price %>
     <%= f.number_field :price %>
 
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-
-    <%= f.label :photo_url %><br>
+    <%= f.label :photo_url %>
     <%= f.text_field :photo_url %>
 
     <%= f.label :stock %>
     <%= f.number_field :stock %>
 
-    <%= f.label :description %><br>
+    <%= f.label :description %>
     <%= f.text_field :description %>
 
-    <%= f.label :active %><br>
+    <%= f.label :active %>
     <%= f.check_box :active %>
 
     <%= f.submit %>
