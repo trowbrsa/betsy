@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:user_id])
+    @user = @product.user
   end
 
   def create
