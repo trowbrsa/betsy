@@ -32,8 +32,12 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if @product.update(product_params)
-      format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+    @product.update(product_params)
+    @user = @product.user
+    if @product.save
+      redirect_to user_products_path(@product.user)
+    else
+      render :edit
     end
   end
 

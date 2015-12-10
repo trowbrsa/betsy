@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :find_review, only: [:show, :edit, :update, :destroy]
-  before_action :find_product, only: [:new, :edit, :create]
+  before_action :find_product, only: [:new, :edit, :update, :create]
 
   def index
     @reviews = Review.all
@@ -34,7 +34,11 @@ class ReviewsController < ApplicationController
 
   def update
     @review.update(review_params)
-    redirect_to user_product_reviews_path(@review.product.user, @review.product, @review)
+    if @review.save
+      redirect_to user_product_reviews_path(@review.product.user, @review.product, @review)
+    else
+      render :edit
+    end
   end
 
 
