@@ -15,5 +15,5 @@
   <%= @order_item.quantity %>
 </p>
 
-<%= link_to 'Edit', edit_user_order_order_item_path(@order_item.id, @user.id, @order_item.order_id) %> |
+<%= link_to 'Edit', edit_user_order_order_item_path(@user.id, @order_item.order_id, @order_item.id) %> |
 <%= link_to 'Back', user_order_order_items_path(@user.id, @order_item.order_id) %>

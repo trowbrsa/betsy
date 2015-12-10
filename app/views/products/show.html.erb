@@ -35,6 +35,6 @@
   <%= @product.active %>
 </p>
 
-<%= link_to 'Edit',  edit_user_product_path(@product.id, @product.user_id) %> |
+<%= link_to 'Edit',  edit_user_product_path(@product.user_id, @product.id) %> |
 <%= link_to 'Back', user_products_path(@product.user_id) %>
-<%= link_to 'Reviews', user_product_reviews_path(@product.id, @product.user_id) %>
+<%= link_to 'Reviews', user_product_reviews_path(@product.user_id, @product.id) %>
