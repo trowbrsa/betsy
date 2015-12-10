@@ -14,11 +14,10 @@
       <div class="thumbnail">
         <div class="img-container">
         <%= image_tag product.photo_url, alt: "product photo" %>
-          <!-- <img src="http://placehold.it/300x300" alt=""> -->
         </div>
           <div class="caption">
-              <h4 class="pull-right">$<%= product.price %></h4>
-              <h4><%= link_to product.name, user_product_path(product.user_id, product.id) %>
+              <h5 class="pull-right">$<%= product.price %></h4>
+              <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
               </h4>
               <p class="description">
                 <% if !product.description.nil? %>
