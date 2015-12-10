@@ -16,16 +16,13 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-$(document).ready(function() {
+var resize_thumbs = function(){
   var thumb = document.getElementsByClassName('thumbnail')[0];
   var width = thumb.clientWidth;
   console.log(width);
   $('.img-container').css({ "height": width+"px" });
-});
+};
 
-$(window).resize(function() {
-  var thumb = document.getElementsByClassName('thumbnail')[0];
-  var width = thumb.clientWidth;
-  console.log(width);
-  $('.img-container').css({ "height": width+"px" });
-});
+$(document).ready(resize_thumbs);
+$(window).resize(resize_thumbs);
+$(document).on('page:change', resize_thumbs);
