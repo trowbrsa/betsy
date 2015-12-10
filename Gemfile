@@ -29,6 +29,8 @@ gem 'bootstrap-sass', '~> 3.3.5'
 
 gem 'simplecov', :require => false, :group => :test
 
+gem 'will_paginate'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
