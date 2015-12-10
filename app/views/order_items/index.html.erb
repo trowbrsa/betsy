@@ -18,8 +18,8 @@
         <td><%= order_item.product_id %></td>
         <td><%= order_item.order_id %></td>
         <td><%= order_item.quantity %></td>
-        <td><%= link_to 'Show', user_order_order_item_path(order_item.id, @user.id, order_item.order) %></td>
-        <td><%= link_to 'Destroy', user_order_order_item_path(order_item.id, @user.id, order_item.order), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', user_order_order_item_path(@user.id, order_item.order, order_item.id) %></td>
+        <td><%= link_to 'Destroy', user_order_order_item_path(@user.id, order_item.order, order_item.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
