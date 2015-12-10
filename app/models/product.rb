@@ -9,4 +9,17 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, :greater_than => 0
   validates :photo_url, format: {with: /\.(png|jpg)\Z/i}, allow_nil: true
 
+  def review_average
+    if reviews.any?
+      total = reviews.inject(0) { |sum, review| sum + review.rating }
+      return total * 1.0 / reviews.count
+    else
+      return 0
+    end
+  end
+
+  def review_rounded
+    return review_average.round
+  end
+
 end
