@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let (:sample_order) {
-    Order.create
-  }
+  # let (:sample_order) {
+  #   Order.create(zip: "02780")
+  # }
 
   describe ".validates" do
+    it { is_expected.to validate_numericality_of(:zip) }
+    it { is_expected.to validate_numericality_of(:cc_num) }
     
   end
 end
