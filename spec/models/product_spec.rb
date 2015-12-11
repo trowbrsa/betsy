@@ -8,11 +8,6 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:price) }
 
-    # it "must have a name and price" do
-    #   expect(Product.new(name: "a")).to_not be_valid
-    #   expect(Product.new(price: 15)).to_not be_valid
-    #   expect(Product.new(name: "a", price: 15)).to be_valid
-    # end
     it "must have a unique name" do
       Product.create(name: "a", price: 10)
       expect(Product.new(name: "a", price: 10)).to_not be_valid
