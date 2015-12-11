@@ -33,8 +33,7 @@ class ReviewsController < ApplicationController
 
 
   def update
-    @review.update(review_params)
-    if @review.save
+    if @review.update(review_params)
       redirect_to user_product_reviews_path(@review.product.user, @review.product, @review)
     else
       render :edit
