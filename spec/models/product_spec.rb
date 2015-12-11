@@ -11,7 +11,8 @@ RSpec.describe Product, type: :model do
       expect(Product.new(name: "a", price: 15)).to be_valid
     end
     it "must have a unique name" do
-      expect(Product.new(name: "Water bottle")).to_not be_valid
+      Product.create(name: "a", price: 10)
+      expect(Product.new(name: "a", price: 10)).to_not be_valid
     end
     it "must have a numerical price" do
       expect(Product.new(name: "a", price: "a")).to_not be_valid
