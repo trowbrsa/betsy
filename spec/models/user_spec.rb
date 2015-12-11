@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe User, type: :model do
   describe ".validates" do
     let(:user1) do
@@ -15,11 +16,24 @@ RSpec.describe User, type: :model do
     it "must have an email" do
       expect(User.new(email: nil)).to_not be_valid
     end
-
-    it "should have uniqueness email" do
-      expect(:user2).to_not be_vaild
+  end
+  #
+  describe "uniqueness" do
+    it do
+      should validate_uniqueness_of(:email)
     end
   end
 
+  # it "should have uniqueness email" do
+  #   expect validate_uniqueness_of(:email)
+  # end
+  #   it "should have uniqueness email" do
+  #     expect(:user2).to be_vaild
+  #   end
+  # end
+  #
+  #
+  # it { validate_uniqueness_of(:email) }
+  # end
 
 end
