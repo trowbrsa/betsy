@@ -1,5 +1,7 @@
-# require 'rails_helper'
-#
-# RSpec.describe Review, type: :model do
-#   pending "add some examples to (or delete) #{__FILE__}"
-# end
+require 'rails_helper'
+
+RSpec.describe Review, type: :model do
+  let(:sample_product) {
+    Product.create(name: "Water bottle", price: 10 )
+  }
+end
