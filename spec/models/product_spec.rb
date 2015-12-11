@@ -43,6 +43,10 @@ RSpec.describe Product, type: :model do
       expect(sample_product.review_average).to eq(3.5)
       expect(sample_product.review_rounded).to eq(4)
     end
+    it "returns 0 for no reviews" do
+      expect(sample_product.review_average).to eq(0)
+      expect(sample_product.review_average).to eq(0)
+    end
   end
 
 end
