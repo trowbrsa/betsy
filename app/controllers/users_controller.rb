@@ -16,9 +16,7 @@ class UsersController < ApplicationController
 
   def products
     @products = @user.products.paginate(page: params[:page], per_page: 12)
-
   end
-
 
   def edit
   end
@@ -33,12 +31,11 @@ class UsersController < ApplicationController
   end
 
   def update
-      if @user.update(user_params)
-        redirect_to users_path
-      else
-        render "edit"
-      end
-    
+    if @user.update(user_params)
+      redirect_to users_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -50,12 +47,12 @@ class UsersController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
 
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :name)
-    end
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :name)
+  end
 end

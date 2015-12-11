@@ -7,10 +7,8 @@ class ProductsController < ApplicationController
     @products = Product.all.paginate(page: params[:page], per_page: 12)
   end
 
-
   def show
   end
-
 
   def new
     @product = Product.new
