@@ -28,21 +28,6 @@ RSpec.describe ReviewsController, type: :controller do
   # let(:product) { FactoryGirl.create(:product) }
   let(:review) { FactoryGirl.create(:review) }
 
-  let(:valid_create_attributes) {
-    {
-      user_id: review.product.user_id,
-      product_id: review.product_id,
-      review: { rating: 4, description: "Great!" }}
-  }
-
-  let(:invalid_create_attributes) {
-    {
-      user_id: review.product.user_id,
-      product_id: review.product_id,
-      review: { description: "The worst"}
-    }
-  }
-
 #   # This should return the minimal set of values that should be in the session
 #   # in order to pass any filters (e.g. authentication) defined in
 #   # ReviewsController. Be sure to keep this updated too.
@@ -88,8 +73,14 @@ RSpec.describe ReviewsController, type: :controller do
         product_id: product.id,
         review: { rating: 4, description: "Great!" }}
     }
-    it "redirects to index on success" do
-      binding.pry
+    let(:invalid_create_attributes) {
+      {
+        user_id: product.user_id,
+        product_id: product.id,
+        review: { description: "The worst"}
+      }
+    }
+    it "redirects to user_product_reviews on success" do
       post :create, valid_create_attributes
       new_review = Review.last
       expect(subject).to redirect_to user_product_reviews_path(new_review.product.user_id, new_review.product_id)
@@ -100,33 +91,37 @@ RSpec.describe ReviewsController, type: :controller do
     end
   end
 
-  # describe "PATCH 'update'" do
-  #   let (:new_medium) do
-  #     Review.create(title: "Hello, World!", creator: "Jennie")
-  #   end
-  #   it "redirects to album on success" do
-  #     patch :update, update_params
-  #     expect(subject).to redirect_to polymorphic_path(new_medium) # need to fix this path
-  #   end
-  #   it "renders edit template on fail" do
-  #     patch :update, bad_update_params
-  #     expect(subject).to render_template (:edit)
-  #   end
-  # end
-  #
+  describe "PATCH 'update'" do
+    let(:valid_update_attributes) {
+      {
+        id: review.id,
+        user_id: review.product.user_id,
+        product_id: review.product.id,
+        review: { rating: 4, description: "Great!" }}
+    }
+    let(:invalid_update_attributes) {
+      {
+        id: review.id,
+        user_id: review.product.user_id,
+        product_id: review.product.id,
+        review: { rating: -1 }
+      }
+    }
+    it "redirects to user_product_reviews on success" do
+      patch :update, valid_update_attributes
+      expect(subject).to redirect_to user_product_reviews_path(review.product.user_id, review.product_id)
+    end
+    it "renders edit template on fail" do
+      patch :update, invalid_update_attributes
+      expect(subject).to render_template (:edit)
+    end
+  end
+
   # describe "DELETE 'destroy'" do
   #   it "redirects to index on delete" do
   #     new_medium = Review.create(title: "Hello, World!", creator: "Jennie")
   #     delete :destroy, id: new_medium.id
   #     expect(subject).to redirect_to polymorphic_path(Review.name.downcase.pluralize) # need to fix this path
-  #   end
-  # end
-  #
-  # describe "POST 'upvote'" do
-  #   it "redirects to show page" do
-  #     new_medium = Review.create(title: "Hello, World!", creator: "Jennie")
-  #     post :upvote, id: new_medium.id
-  #     expect(subject).to redirect_to polymorphic_path(new_medium) # need to fix this path
   #   end
   # end
 
