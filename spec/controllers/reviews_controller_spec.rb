@@ -33,32 +33,39 @@ RSpec.describe ReviewsController, type: :controller do
     { description: "The worst"}
   }
 
+  let(:review) { FactoryGirl.create(:review )}
+
 #   # This should return the minimal set of values that should be in the session
 #   # in order to pass any filters (e.g. authentication) defined in
 #   # ReviewsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  # let(:valid_session) { {} }
 
   describe "GET 'index'" do
     it "is successful" do
-      get :index
+      # review = FactoryGirl.create(:review)
+      get :index, product_id: review.product_id, user_id: review.product.user_id
       expect(response.status).to eq 200
     end
-  end
-
-  describe "GET 'new'" do
-    it "renders the new page" do
-      get :new
-      expect(subject).to render_template :new
+    it "assigns all reviews as @reviews" do
+      get :index, product_id: review.product_id, user_id: review.product.user_id
+      expect(assigns(:reviews)).to eq([review])
     end
   end
 
-  describe "GET 'edit'" do
-    it "renders edit page" do
-      new_review = Review.create(valid_attributes)
-      get :edit, id: new_review.id
-      expect(subject).to render_template :edit
-    end
-  end
+  # describe "GET 'new'" do
+  #   it "renders the new page" do
+  #     get :new
+  #     expect(subject).to render_template :new
+  #   end
+  # end
+  #
+  # describe "GET 'edit'" do
+  #   it "renders edit page" do
+  #     new_review = Review.create(valid_attributes)
+  #     get :edit, id: new_review.id
+  #     expect(subject).to render_template :edit
+  #   end
+  # end
 
   # describe "GET 'show'" do
   #   it "renders show page" do
