@@ -10,6 +10,7 @@ FactoryGirl.define do
     name "Water Noodle"
     price 500
     stock 10
+    association :user
   end
 
   factory :order do
@@ -18,7 +19,7 @@ FactoryGirl.define do
 
   factory :review do
     rating 4
-    association :product, :factory => :product, :user_id => 1
+    association :product
   end
 
   factory :orderitem do

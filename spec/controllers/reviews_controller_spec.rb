@@ -24,16 +24,24 @@ RSpec.describe ReviewsController, type: :controller do
 #   # This should return the minimal set of attributes required to create a valid
 #   # Review. As you add validations to Review, be sure to
 #   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    { rating: 4,
-      description: "Great!"}
+  # let(:user) { FactoryGirl.create(:user) }
+  # let(:product) { FactoryGirl.create(:product) }
+  let(:review) { FactoryGirl.create(:review) }
+
+  let(:valid_create_attributes) {
+    {
+      user_id: review.product.user_id,
+      product_id: review.product_id,
+      review: { rating: 4, description: "Great!" }}
   }
 
-  let(:invalid_attributes) {
-    { description: "The worst"}
+  let(:invalid_create_attributes) {
+    {
+      user_id: review.product.user_id,
+      product_id: review.product_id,
+      review: { description: "The worst"}
+    }
   }
-
-  let(:review) { FactoryGirl.create(:review )}
 
 #   # This should return the minimal set of values that should be in the session
 #   # in order to pass any filters (e.g. authentication) defined in
@@ -42,7 +50,6 @@ RSpec.describe ReviewsController, type: :controller do
 
   describe "GET 'index'" do
     it "is successful" do
-      # review = FactoryGirl.create(:review)
       get :index, product_id: review.product_id, user_id: review.product.user_id
       expect(response.status).to eq 200
     end
@@ -52,41 +59,47 @@ RSpec.describe ReviewsController, type: :controller do
     end
   end
 
-  # describe "GET 'new'" do
-  #   it "renders the new page" do
-  #     get :new
-  #     expect(subject).to render_template :new
-  #   end
-  # end
-  #
-  # describe "GET 'edit'" do
-  #   it "renders edit page" do
-  #     new_review = Review.create(valid_attributes)
-  #     get :edit, id: new_review.id
-  #     expect(subject).to render_template :edit
-  #   end
-  # end
+  describe "GET 'new'" do
+    it "renders the new page" do
+      get :new, product_id: review.product_id, user_id: review.product.user_id
+      expect(subject).to render_template :new
+    end
+  end
 
-  # describe "GET 'show'" do
-  #   it "renders show page" do
-  #     new_medium = Review.create(title: "Hello, World!", creator: "Jennie")
-  #     get :show, id: new_medium.id
-  #     expect(subject).to render_template :show, id: new_medium.id
-  #   end
-  # end
-  #
-  # describe "POST 'create'" do
-  #   it "redirects to show on success" do
-  #     post :create, good_params
-  #     new_medium = Review.last
-  #     expect(subject).to redirect_to polymorphic_path(new_medium) # need to fix this path
-  #   end
-  #   it "renders new on fail" do
-  #     post :create, bad_params
-  #     expect(subject).to render_template :new
-  #   end
-  # end
-  #
+  describe "GET 'edit'" do
+    it "renders edit page" do
+      get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
+      expect(subject).to render_template :edit
+    end
+  end
+
+  describe "GET 'show'" do
+    it "renders show page" do
+      get :show, product_id: review.product_id, user_id: review.product.user_id, id: review.id
+      expect(subject).to render_template :show, product_id: review.product_id, user_id: review.product.user_id, id: review.id
+    end
+  end
+
+  describe "POST 'create'" do
+    let(:product) { FactoryGirl.create(:product) }
+    let(:valid_create_attributes) {
+      {
+        user_id: product.user_id,
+        product_id: product.id,
+        review: { rating: 4, description: "Great!" }}
+    }
+    it "redirects to index on success" do
+      binding.pry
+      post :create, valid_create_attributes
+      new_review = Review.last
+      expect(subject).to redirect_to user_product_reviews_path(new_review.product.user_id, new_review.product_id)
+    end
+    it "renders new on fail" do
+      post :create, invalid_create_attributes
+      expect(subject).to render_template :new
+    end
+  end
+
   # describe "PATCH 'update'" do
   #   let (:new_medium) do
   #     Review.create(title: "Hello, World!", creator: "Jennie")
