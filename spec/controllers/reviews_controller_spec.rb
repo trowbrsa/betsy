@@ -117,13 +117,12 @@ RSpec.describe ReviewsController, type: :controller do
     end
   end
 
-  # describe "DELETE 'destroy'" do
-  #   it "redirects to index on delete" do
-  #     new_medium = Review.create(title: "Hello, World!", creator: "Jennie")
-  #     delete :destroy, id: new_medium.id
-  #     expect(subject).to redirect_to polymorphic_path(Review.name.downcase.pluralize) # need to fix this path
-  #   end
-  # end
+  describe "DELETE 'destroy'" do
+    it "redirects to user_product_reviews on delete" do
+      delete :destroy, id: review.id, user_id: review.product.user_id, product_id: review.product_id
+      expect(subject).to redirect_to user_product_reviews_path(review.product.user_id, review.product_id)
+    end
+  end
 
   # describe "GET #index" do
   #   it "assigns all reviews as @reviews" do
