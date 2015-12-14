@@ -13,10 +13,24 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
+  def correct_user
+    id = params[:id] || params[:user_id]
+    @user = User.find(id)
+    flash[:error] = "You do not have permission to access that page."
+    redirect_to(root_path) unless @user == current_user
+  end
+
   def require_login
     if current_user.nil?
       flash[:error] = "You must be logged in."
       redirect_to login_path
+    end
+  end
+
+  def require_logout
+    if !current_user.nil?
+      flash[:error] = "You are currently logged in. You must log out to complete that action."
+      redirect_to root_path
     end
   end
 end
