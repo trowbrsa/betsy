@@ -1,19 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Orders</h1>
+<h1><%= @user.name %>'s Orders</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Email</th>
-      <th>Street</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Cc num</th>
-      <th>Cc exp</th>
-      <th>Cc cvv</th>
-      <th>Cc name</th>
+      <th>Status</th>
+      <th>Order Items</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,23 +14,20 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= order.email %></td>
-        <td><%= order.street %></td>
-        <td><%= order.city %></td>
-        <td><%= order.state %></td>
-        <td><%= order.zip %></td>
-        <td><%= order.cc_num %></td>
-        <td><%= order.cc_exp %></td>
-        <td><%= order.cc_cvv %></td>
-        <td><%= order.cc_name %></td>
-        <td><%= link_to 'Show', user_order_path(@user.id, order.id) %></td>
-        <td><%= link_to 'Edit', edit_user_order_path(@user.id, order.id) %></td>
-        <td><%= link_to 'Destroy', user_order_path(@user.id, order.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Order items', user_order_order_items_path(@user.id, order.id) %> </td>
+        <td><%= order.status %></td>
+        <td><% order.order_items.each do |oi| %>
+              <% if oi.product.user == @user %>
+                <%= oi.product.name %>(<%= oi.quantity %>)
+                <br>
+              <% end %>
+            <% end %>
+        </td>
+        <td>
+          <%= link_to "View Order", user_order_path(@user.id, order.id) %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
+<br>
 <%= link_to 'New Order', new_user_order_path %>
