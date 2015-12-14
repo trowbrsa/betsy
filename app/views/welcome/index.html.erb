@@ -2,6 +2,12 @@
   <h1>Wetsy Homepage</h1>
 </div>
 <div class="container">
+  <% if !flash[:success].nil? %>
+  <div class="alert alert-success fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= flash[:success] %>
+  </div>
+  <% end %>
   <h2 class="text-center">Find the Best Products for Fun Water Times</h2>
   <hr>
   <%= render 'shared/display_products' %>
