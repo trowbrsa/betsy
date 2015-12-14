@@ -22,8 +22,10 @@ FactoryGirl.define do
     association :product
   end
 
-  factory :orderitem do
-
+  factory :orderitem, class: OrderItem do
+    quantity 4
+    association :order
+    association :product
   end
 
   factory :category do
