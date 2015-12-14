@@ -4,8 +4,8 @@ class OrdersController < ApplicationController
   before_action :correct_user, only: [:index]
 
   def index
-    @orders = Order.all
     @user = User.find(params[:user_id])
+    @orders = @user.orders
   end
 
 
