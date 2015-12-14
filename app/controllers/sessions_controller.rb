@@ -4,7 +4,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    raise
+    data = params[:session_data]
+    @user = User.find_by_username(data[:username])
+    if @user && @user.authenticate(data[:password])# User's email is in the system
+      # user is authenticated
+      session[:user_id] = @user.id
+      flash[:success] = "Welcome, #{@user.name}"
+      redirect_to root_path
+    else
+      # user not logged in
+      flash.now[:danger] = "Invalid username/password combination"
+      render :new
+    end
   end
 
   def destroy
