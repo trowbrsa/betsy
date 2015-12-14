@@ -5,22 +5,19 @@ class SessionsController < ApplicationController
   def create
     data = params[:session_data]
     @user = User.find_by_username(data[:username])
-    if !@user.nil?
-      if @user.authenticate(data[:password])
-        session[:user_id] = @user.id
-        redirect_to root_path
-      else
-        flash.now[:error] = "Try again."
-        render :new
-      end
+    if !@user.nil? && @user.authenticate(data[:password])
+      session[:user_id] = @user.id
+      flash[:success] = "You are now logged in."
+      redirect_to root_path
     else
-      flash[:error] = "Register New Account"
-      redirect_to new_user_path
+      flash.now[:error] = "Invalid username and password combination."
+      render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
+    flash[:success] = "You are now logged out."
     redirect_to root_path
   end
 end
