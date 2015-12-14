@@ -1,10 +1,8 @@
 <div class="container">
-  <% if !flash.now[:error].nil? %>
-    <p><%= flash.now[:error] %></p>
-  <% end %>
-
   <%= form_for(:session_data, url: login_path, :html => {:class => "form-signin"}) do |f| %>
- <!-- <form class="form-signin"> -->
+  <% if !flash.now[:danger].nil? %>
+    <p class="alert alert-danger"><%= flash.now[:danger] %></p>
+  <% end %>
    <h2 class="form-signin-heading">Please sign in</h2>
    <%= f.label :username, class: "sr-only" %>
    <%= f.text_field :username, class: "form-control", placeholder: "Username" %>
@@ -12,11 +10,6 @@
    <%= f.label :password, class: "sr-only" %>
    <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
    <br>
-   <!-- <div class="checkbox">
-     <label>
-       <input type="checkbox" value="remember-me"> Remember me
-     </label>
-   </div> -->
    <%= f.submit "Sign in", class: "btn btn-lg btn-primary btn-block" %>
    <% end %>
 
