@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    c
     @order = Order.new
   end
 
