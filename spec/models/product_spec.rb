@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:sample_product) {
-    Product.create(name: "Water bottle", price: 10, stock: 5 )
-  }
+  let(:sample_product) { FactoryGirl.create(:product) }
+
   describe ".validates" do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:price) }
+    it { is_expected.to validate_presence_of(:user_id) }
 
     it "must have a unique name" do
-      Product.create(name: "a", price: 10, stock: 5)
-      expect(Product.new(name: "a", price: 10, stock: 5)).to_not be_valid
+      expect(Product.new(name: sample_product.name, price: 10, stock: 5)).to_not be_valid
     end
     it "must have a numerical price" do
       expect(Product.new(name: "a", price: "a", stock: 5)).to_not be_valid

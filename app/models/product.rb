@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   has_many :reviews
   has_and_belongs_to_many :categories
 
-  validates :name, :price, presence: true
+  validates :name, :price, :user_id, presence: true
   validates :name, uniqueness: true
   validates_numericality_of :price, :greater_than => 0
   validates_numericality_of :stock, :greater_than_or_equal_to => 0
