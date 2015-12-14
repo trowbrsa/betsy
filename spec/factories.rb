@@ -28,7 +28,6 @@ FactoryGirl.define do
 
   factory :category do
     name "toy"
-    product
   end
 
 end
