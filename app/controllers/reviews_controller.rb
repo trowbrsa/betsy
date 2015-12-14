@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :find_review, only: [:show, :edit, :update, :destroy]
-  before_action :find_product, only: [:new, :edit, :update, :create]
+  before_action :find_review, only: [:show, :update, :destroy]
+  before_action :find_product, only: [:new, :update, :create]
 
   def index
     @reviews = Review.all
@@ -15,9 +15,9 @@ class ReviewsController < ApplicationController
     @review = Review.new
   end
 
-
-  def edit
-  end
+  # Since guests can create a review, nobody (for now) can edit it. Maybe for admin user later...
+  # def edit
+  # end
 
 
   def create
