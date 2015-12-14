@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
   before_action :find_user, only: [:new, :edit, :create, :update]
   before_action :all_categories, only: [:new, :edit, :create, :update]
+  before_action :require_login, only: [:new, :edit, :create, :update]
 
   def index
     @products = Product.all.paginate(page: params[:page], per_page: 12)

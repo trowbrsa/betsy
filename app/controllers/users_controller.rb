@@ -1,11 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :products]
-
+  before_action :require_login, only: [:update, :destroy, :edit]
+  before_action :correct_user, only: [:update, :destroy, :edit]
+  before_action :require_logout, only: [:new]
 
   def index
     @users = User.all
   end
-
 
   def show
   end
@@ -37,6 +38,8 @@ class UsersController < ApplicationController
       render "edit"
     end
   end
+
+  # TODO: Maybe we shouldn't allow users to destroy. Only mark inactive?
 
   def destroy
     @user.destroy

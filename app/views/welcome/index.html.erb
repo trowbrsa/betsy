@@ -8,6 +8,12 @@
     <%= flash[:success] %>
   </div>
   <% end %>
+  <% if !flash[:error].nil? %>
+  <div class="alert alert-danger fade in">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= flash[:error] %>
+  </div>
+  <% end %>
   <h2 class="text-center">Find the Best Products for Fun Water Times</h2>
   <hr>
   <%= render 'shared/display_products' %>
