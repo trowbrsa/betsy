@@ -96,6 +96,20 @@ h5 {
   text-overflow: ellipsis;
 }
 
+// Login Page
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+// Responsive images
+
 @media (min-width: 768px){
   .thumbnail {
     max-width: 300px;

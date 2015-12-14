@@ -4,8 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
+    raise
   end
 
   def destroy
   end
+
 end
