@@ -39,15 +39,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # TODO: Maybe we shouldn't allow users to destroy. Only mark inactive?
-
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-    end
-  end
-
   private
 
   def set_user
