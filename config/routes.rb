@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'cart/' => 'carts#add_product', as: :add_to_cart
+
   get 'cart/' => 'carts#show', as: :cart
   get 'products/' => 'products#index', as: :products
   get 'login/' => 'sessions#new', as: :login

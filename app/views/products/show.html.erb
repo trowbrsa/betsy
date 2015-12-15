@@ -1,48 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Merchant: <%= link_to @product.user.name, user_path(@product.user.id) %></h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="list-inline">
+      <% @product.categories.each do |cat| %>
+        <%= link_to cat.name, category_path(cat.id) %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-1 col-sm-12"> <!-- image section -->
+    <div class="thumbnail">
+      <div class="img-container">
+      <%= image_tag @product.photo_url, alt: "product photo" %>
+      </div>
+    </div>
+  </div> <!-- end image section -->
+  <div class="col-md-3 col-sm-12"> <!-- info section -->
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @product.user_id %>
-</p>
-
-<p>
-  <strong>Photo url:</strong>
-  <%= @product.photo_url %>
-</p>
-
-<p>
-  <strong>Stock:</strong>
-  <%= @product.stock %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Categories:</strong>
-  <% @product.categories.each do |c| %>
-    <%= c.name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @product.active %>
-</p>
-
-<%= link_to 'Edit',  edit_user_product_path(@product.user_id, @product.id) %> |
-<%= link_to 'Back', user_products_path(@product.user_id) %>
-<%= link_to 'Reviews', user_product_reviews_path(@product.user_id, @product.id) %>
-<%= link_to 'Add to Cart', cart_path %>
+      <h2><%= @product.name %>
+      </h2>
+      <h4><%= dollar_price(@product.price) %></h4>
+      <p><%= @product.description %></p>
+      <p class="num_available"><%= @product.stock %> Available</p>
+      <%= form_tag({controller: "carts", action: "add_product"}, method: :post) do %>
+        <%= submit_tag "Add to Cart", class: "btn btn-lg btn-primary btn-block" %>
+        <% end %>
+  </div> <!-- end info section -->
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <!-- add a review form -->
+    <p>TODO: Add a form for adding a review</p>
+  </div>
+  <div class="col-sm-6">
+    <!-- ratings -->
+    <p>TODO: Add the list of ratings</p>
+    <p></p>
+  </div>
+</div>
