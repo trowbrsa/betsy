@@ -44,7 +44,7 @@ class CartsController < ApplicationController
     cart = session[:cart]
     product_id = params[:id]
     cart.delete(product_id)
+    session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
   end
-
 end
