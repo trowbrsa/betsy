@@ -1,11 +1,9 @@
 <%= form_for @category, :html => {:class => "form-inline"} do |f| %>
   <% if @category.errors.any? %>
-    <div id="error_explanation">
-      <ul>
+    <div class="alert-danger">
       <% @category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <p>Error: <%= message %></p>
       <% end %>
-      </ul>
     </div>
   <% end %>
   <div class="form-group">
