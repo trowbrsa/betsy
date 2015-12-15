@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :categories, except: [:new]
   resources :users do
-    resources :orders do
+    resources :orders, only: [:index, :show] do
       resources :order_items
     end
     resources :products, except: [:index, :destroy] do
@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
   delete 'logout/' => 'sessions#destroy', as: :logout
+  get 'checkout/' => 'orders#new', as: :checkout_new
+  post 'checkout/' => 'orders#create', as: :checkout_submit
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

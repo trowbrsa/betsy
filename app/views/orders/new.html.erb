@@ -9,7 +9,7 @@
 </ul>
 
 <h3>Payment Details</h3>
-<%= form_for [@user, @order] do |f| %>
+<%= form_for @order, url: checkout_submit_path do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -62,4 +62,4 @@
 <% end %>
 
 
-<%= link_to 'Back', user_orders_path(@user.id, @order.id) %>
+<%= link_to 'Back to Cart', cart_path %>
