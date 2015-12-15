@@ -1,4 +1,4 @@
-<%= form_for [@user, @product] do |f| %>
+<%= form_for [@user, @product], :html => {:class => "form-group" } do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -12,28 +12,31 @@
   <div class="field">
 
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: 'form-control', :required => true %>
 
     <%= f.label :price %>
-    <%= f.number_field :price %>
+    <%= f.number_field :price, class: 'form-control', :required => true %>
 
     <%= f.label :photo_url %>
-    <%= f.text_field :photo_url %>
+    <%= f.text_field :photo_url, class: 'form-control' %>
 
     <%= f.label :stock %>
-    <%= f.number_field :stock %>
+    <%= f.number_field :stock, class: 'form-control', :required => true %>
 
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: 'form-control' %>
 
-    <%= f.label :active %>
-    <%= f.check_box :active %>
+    <div class="checkbox checkbox-inline">
+      <%= f.check_box :active %>
+      <%= f.label :active %>
+    </div>
+
     <br>
     <%= f.label "Categories:" %>
     <% @categories.each do |c| %>
       <%= check_box_tag "categories[]", c.id, @product.categories.include?(c) %>
       <%= label_tag c.name %>
     <% end %>
-    <%= f.submit %>
+    <%= f.submit value: "Add Product", class: "btn btn-primary" %>
   </div>
 <% end %>

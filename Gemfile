@@ -31,6 +31,8 @@ gem 'simplecov', :require => false, :group => :test
 
 gem 'will_paginate'
 
+gem "font-awesome-rails"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
