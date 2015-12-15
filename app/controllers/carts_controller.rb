@@ -25,7 +25,7 @@ class CartsController < ApplicationController
       cart[product_id] = 1
     end
 
-    redirect_to user_product_path(product.user_id, product.id)
+    redirect_to cart_path
   end
 
   def clearCart

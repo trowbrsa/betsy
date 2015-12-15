@@ -1,15 +1,18 @@
 <h1> Cart </h1>
 
-<% @cart.each do |product_id, quantity| %>
-  <% product = Product.find(product_id) %>
+
     <table>
       <th> Product </th>
       <th> Description </th>
       <th> Price </th>
+      <th>quantity </th>
+      <% @cart.each do |product_id, quantity| %>
+        <% product = Product.find(product_id) %>
         <tr>
-          <td> <%= link_to product.name, user_product(product.user_id, product.id) %> </td>
+          <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
           <td> <%= product.description %> </td>
           <td> <%= product.price %> </td>
+          <td> <%= quantity %> </td>
           <td> <%= link_to 'remove-NOT WORKING', cart_path %> </td>
         </tr>
   <% end %>

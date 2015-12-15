@@ -3,14 +3,6 @@ require 'rails_helper'
 RSpec.describe ProductsController, type: :controller do
   let (:product) { FactoryGirl.create(:product) }
 
-  # let (:sample_user) {
-  #   User.create(username: "Kelly", email: "Kelly@kelly.com", password: "password")
-  # }
-  #
-  # let (:product) {
-  #   Product.create(name: "Rubber ducky",  price: "500", stock: "1", user_id: sample_user.id)
-  # }
-
   let (:bad_params) {
     { user_id: product.user.id,
       product: { price: "zzz" }
@@ -45,6 +37,10 @@ RSpec.describe ProductsController, type: :controller do
     #   get :show, {id: product.id, user_id: product.user.id + 1 }, user_id: product.user.id
     #   expect(subject).to redirect_to root_path
     # end
+    it "assigns a new review as @review" do
+      get :show, {id: product.id, user_id: product.user.id}, user_id: product.user.id
+      expect(assigns(:review)).to be_a_new(Review)
+    end
   end
 
   describe "GET 'new'" do
