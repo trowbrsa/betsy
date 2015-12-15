@@ -13,9 +13,9 @@
           <td> <%= product.description %> </td>
           <td> <%= product.price %> </td>
           <td> <%= quantity %> </td>
-          <td> <%= link_to 'remove-NOT WORKING', cart_path %> </td>
+          <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
         </tr>
   <% end %>
     </table>
 
-<p> Items total $<%= Cart.subtotal(@cart) %> </p>
+<!-- <p> Items total method %> </p> -->

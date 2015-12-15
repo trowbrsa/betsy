@@ -19,7 +19,7 @@ class CartsController < ApplicationController
     end
     # if the cart already has the product -> just add one
     # if not -> set the quantity to one
-    if cart[product_id]
+    if cart[product_id]!= 0
       cart[product_id] = cart[product_id] + 1
     else
       cart[product_id] = 1
@@ -31,6 +31,13 @@ class CartsController < ApplicationController
   def clearCart
     session[:cart] = nil
     redirect_to index
+  end
+
+  def destroy
+    cart = session[:cart]
+    product_id = params[:id]
+    cart.delete(product_id)
+    redirect_to cart_path
   end
 
 end
