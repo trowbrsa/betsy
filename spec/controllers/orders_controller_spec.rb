@@ -7,7 +7,7 @@ RSpec.describe OrdersController, type: :controller do
 
   let (:good_params) {
     { user_id: sample_user.id,
-      order: { email: "Kelly@kelly.com", street: "test" , city: "Seattle", state: "WA", zip: "98116", cc_num: "123", cc_cvv: "123", cc_name: "Kelly"}
+      order: { email: "Kelly@kelly.com", street: "test" , city: "Seattle", state: "WA", zip: "98116", cc_num: "123", cc_cvv: "123", cc_name: "Kelly", cc_exp: "20151215"}
     }
   }
 
@@ -35,19 +35,18 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET 'new'" do
     it "renders new view" do
-      # session[:cart] = { 1 => 2, 3 => 4 }
+      session[:cart] = { 1 => 2, 3 => 4 }
       get :new, user_id: sample_user.id
       expect(subject).to render_template :new
     end
   end
 
   describe "POST 'create'" do
-    it "redirects to index page" do
-      # session[:cart] = { 1 => 2, 3 => 4 }
+    it "redirects to checkout confirmation page" do
+      session[:cart] = { 1 => 2, 3 => 4 }
       session[:user_id] = sample_user.id
-      binding.pry
       post :create, good_params
-      expect(subject).to redirect_to user_orders_path
+      expect(subject).to redirect_to confirmation_path(Order.all.last)
     end
 
     it "renders new template on error" do
@@ -56,32 +55,4 @@ RSpec.describe OrdersController, type: :controller do
       expect(subject).to render_template :new
     end
   end
-
-  # describe "GET 'edit'" do
-  #   it "renders edit view" do
-  #     get :edit, id: sample_order.id
-  #     expect(subject).to render_template :edit
-  #   end
-  # end
-
-  # describe "PATCH 'update'" do
-  #   it "redirects to index page" do
-  #     patch :update, { order: { zip: "02780" } }
-  #     expect(subject).to redirect_to orders_path
-  #     expect(Order.all.last.zip).to eq "02780"
-  #   end
-  #
-  #   it "renders edit template on error" do
-  #     patch :update, bad_params
-  #     expect(subject).to render_template :edit
-  #     expect(Order.all.last.zip).to eq nil
-  #   end
-  # end
-
-  # describe "DELETE 'destroy'" do
-  #   it "redirects to index page" do
-  #     delete :destroy, id: sample_order.id
-  #     expect(subject).to redirect_to orders_path
-  #   end
-  # end
 end

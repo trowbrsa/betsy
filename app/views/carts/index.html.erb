@@ -1,5 +1,8 @@
 <h1> Cart </h1>
 
+<% if !flash.now[:error].nil? %>
+  <%= flash.now[:error] %>
+<% end %>
 
     <table>
       <th> Product </th>
@@ -17,7 +20,5 @@
         </tr>
   <% end %>
     </table>
-
+ <p> Items total $ <%= Cart.subtotal(@cart) %> </p>
     <%= link_to "Proceed to Checkout", checkout_new_path %>
-
-<!-- <p> Items total method %> </p> -->
