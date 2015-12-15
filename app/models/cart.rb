@@ -27,6 +27,7 @@ class Cart
       product = Product.find(order_item.product_id)
       products.push(product)
     end
+    return products
   end
 
  #Get subtotal of the cart items
