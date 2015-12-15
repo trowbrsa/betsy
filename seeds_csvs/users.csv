@@ -1,11 +1,11 @@
 username,email,password,password_confirmation,name
-user1,user1@example.com,zAJeq7zugu,zAJeq7zugu,User One
-user2,user2@example.com,breha8uMaF,breha8uMaF,User Two
-user3,user3@example.com,tHu5etudru,tHu5etudru,User Three
-user4,user4@example.com,pesA7raket,pesA7raket,User Four
-user5,user5@example.com,wrucast7sW,wrucast7sW,User Five
-user6,user6@example.com,TreSwe6erE,TreSwe6erE,User Six
-user7,user7@example.com,PeJaVa7ewr,PeJaVa7ewr,User Seven
-user8,user8@example.com,TRu2hutRuf,TRu2hutRuf,User Eight
-user9,user9@example.com,tute6Eqagu,tute6Eqagu,User Nine
-user10,user10@example.com,Wref8AQeye,Wref8AQeye,User Ten
+user1,user1@example.com,password,password,User One
+user2,user2@example.com,password,password,User Two
+user3,user3@example.com,password,password,User Three
+user4,user4@example.com,password,password,User Four
+user5,user5@example.com,password,password,User Five
+user6,user6@example.com,password,password,User Six
+user7,user7@example.com,password,password,User Seven
+user8,user8@example.com,password,password,User Eight
+user9,user9@example.com,password,password,User Nine
+user10,user10@example.com,password,password,User Ten

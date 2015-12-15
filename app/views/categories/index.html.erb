@@ -1,27 +1,50 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-8 col-lg-8 col-md-8">
+    <h1>Looking for Inspiration? <small>Shop by Category</small></h1>
+  </div>
+  <div class="col-sm-4 col-lg-4 col-md-4">
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <ul class="list-inline">
+      <% @categories.each do |cat| %>
+        <%= link_to cat.name, category_path(cat.id) %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <% count = 0 %>
+  <% @categories.each do |category| %>
+    <% product = category.products.first %>
+    <div class="col-sm-3 col-lg-3 col-md-3">
+      <h3 class="text-center"><%= category.name.capitalize %></h3>
+      <h4><strong>Featured Product:</strong></h4>
+      <div class="thumbnail">
+        <div class="img-container">
+        <%= image_tag product.photo_url, alt: "product photo" %>
+        </div>
+        <div class="caption">
+            <h5 class="pull-right"><%= dollar_price(product.price) %></h4>
+            <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
+            </h4>
+            <p class="description">
+              <% if !product.description.nil? %>
+                <%= product.description %>
+              <% else %>
+                <br>
+              <% end %>
+            </p>
+            <p class="num_available"><%= product.stock %> Available</p>
+        </div>
+      </div>
+    </div>
+    <% count += 1 %>
+    <% if count % 4 == 0 %>
+    </div>
+    <div class="row">
     <% end %>
-  </tbody>
-</table>
-
-<br>
+  <% end %>
 
 <%= link_to 'New Category', new_category_path %>
