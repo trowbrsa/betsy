@@ -24,15 +24,19 @@
 </p>
 
 <p>
-  <strong>Cc num:</strong>
-  <% (@order.cc_num.length - 4).times do %>
-    *
+  <strong>Credit Card:</strong>
+  <% if @order.cc_num.length <= 4 %>
+    <%= @order.cc_num %>
+  <% else %>
+    <% (@order.cc_num.length - 4).times do %>
+      *
+    <% end %>
+    <%= @order.cc_num[(@order.cc_num.length - 4)..(@order.cc_num.length - 1)] %>
   <% end %>
-  <%= @order.cc_num[(@order.cc_num.length - 4)..(@order.cc_num.length - 1)] %>
 </p>
 
 <p>
-  <strong>Cc exp:</strong>
+  <strong>Credit Card Expiration:</strong>
   <%= @order.cc_exp %>
 </p>
 
@@ -47,6 +51,5 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_order_path(@user.id, @order.id) %> |
 <%= link_to 'Back', user_orders_path(@user.id, @order.id) %>
 <%= link_to 'Order Item', user_order_order_items_path(@user.id, @order.id) %>
