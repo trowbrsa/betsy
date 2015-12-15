@@ -11,10 +11,6 @@ class ReviewsController < ApplicationController
   def show
   end
 
-  def new
-    @review = Review.new
-  end
-
   # Since guests can create a review, nobody (for now) can edit it. Maybe for admin user later...
   # def edit
   # end
