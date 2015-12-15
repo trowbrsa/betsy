@@ -1,9 +1,15 @@
-class Cart < ActiveRecord::Base
+class Cart
 
   def initialize(session)
    @session = session
    @session[:cart] ||= {}
   end
+
+  def add_product(product_id, quantity)
+    initialize
+    @session[:cart] = {:product_id => quantity }
+  end
+
 
  def cart_count
    if @session[:cart]!= {}
@@ -13,16 +19,6 @@ class Cart < ActiveRecord::Base
    end
  end
 
-  #return an array of new (unsaved) order items
-  def new_order_items
-    order_items = []
-    initialize
-    @session[:cart].each do |product, quantity|
-      order_items.push(OrderItem.new(:product_id => product, :quantity => quantity))
-    end
-    return order_items
-  end
-
   #return an array of product objects that are in the cart
   def find_products
     product = []
@@ -31,6 +27,7 @@ class Cart < ActiveRecord::Base
       product = Product.find(order_item.product_id)
       products.push(product)
     end
+    return products
   end
 
  #Get subtotal of the cart items
