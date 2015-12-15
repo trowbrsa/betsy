@@ -17,4 +17,8 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
+
+  def readable_date(date)
+    date.strftime('%b %-e, %Y')
+  end
 end

@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
       r.product_id = params[:product_id]
     end
     if @review.save
-      redirect_to user_product_reviews_path(@review.product.user, @review.product)
+      redirect_to user_product_path(@review.product.user, @review.product)
     else
       render :new
     end

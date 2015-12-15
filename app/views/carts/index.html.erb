@@ -1,0 +1,18 @@
+<h1> Cart </h1>
+
+<% @cart.each do |product_id, quantity| %>
+  <% product = Product.find(product_id) %>
+    <table>
+      <th> Product </th>
+      <th> Description </th>
+      <th> Price </th>
+        <tr>
+          <td> <%= link_to product.name, user_product(product.user_id, product.id) %> </td>
+          <td> <%= product.description %> </td>
+          <td> <%= product.price %> </td>
+          <td> <%= link_to 'remove-NOT WORKING', cart_path %> </td>
+        </tr>
+  <% end %>
+    </table>
+
+<p> Items total $<%= Cart.subtotal(@cart) %> </p>
