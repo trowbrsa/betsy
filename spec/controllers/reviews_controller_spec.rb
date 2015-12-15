@@ -14,19 +14,6 @@ RSpec.describe ReviewsController, type: :controller do
     end
   end
 
-  describe "GET 'new'" do
-    it "renders the new page" do
-      get :new, product_id: review.product_id, user_id: review.product.user_id
-      expect(subject).to render_template :new
-    end
-
-    it "assigns a new review as @review" do
-      get :new, product_id: review.product_id, user_id: review.product.user_id
-      expect(assigns(:review)).to be_a_new(Review)
-    end
-
-  end
-
   describe "GET 'edit'" do
     it "renders edit page" do
       get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
