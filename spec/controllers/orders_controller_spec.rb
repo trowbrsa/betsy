@@ -5,20 +5,14 @@ RSpec.describe OrdersController, type: :controller do
     User.create(username: "Kelly", email: "Kelly@kelly.com", password: "password")
   }
 
-  let (:sample_product) {
-    Product.create(name: "Rubber ducky",  price: "500", stock: "1", user_id: sample_user.id)
-  }
-
-  let (:sample_order_item) {
-    User.create(product_id: sample_product.id, order_id: sample_order.id, quantity: "3")
-  }
-
-  let (:sample_order) {
-    Order.create
+  let (:good_params) {
+    { user_id: sample_user.id,
+      order: { email: "Kelly@kelly.com", street: "test" , city: "Seattle", state: "WA", zip: "98116", cc_num: "123", cc_cvv: "123", cc_name: "Kelly"}
+    }
   }
 
   let (:bad_params) {
-    {
+    { user_id: sample_user.id,
       order: { zip: "zzz" }
     }
   }
@@ -33,6 +27,7 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET 'show'" do
     it "renders the show view" do
+      sample_order = Order.create(good_params[:order])
       get :show, id: sample_order.id, user_id: sample_user.id
       expect(subject).to render_template :show
     end
@@ -40,7 +35,7 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET 'new'" do
     it "renders new view" do
-      session[:cart] = { 1 => 2, 3 => 4 }
+      # session[:cart] = { 1 => 2, 3 => 4 }
       get :new, user_id: sample_user.id
       expect(subject).to render_template :new
     end
@@ -48,12 +43,15 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "POST 'create'" do
     it "redirects to index page" do
-      session[:cart] = { 1 => 2, 3 => 4 }
-      post :create, { user_id: sample_user.id } 
-      expect(subject).to redirect_to orders_path
+      # session[:cart] = { 1 => 2, 3 => 4 }
+      session[:user_id] = sample_user.id
+      binding.pry
+      post :create, good_params
+      expect(subject).to redirect_to user_orders_path
     end
 
     it "renders new template on error" do
+      session[:cart] = { 1 => 2, 3 => 4 }
       post :create, bad_params
       expect(subject).to render_template :new
     end

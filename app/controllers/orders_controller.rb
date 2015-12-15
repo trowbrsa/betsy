@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
   private
 
   def order_items
-    # session[:cart] = { 1 => 2, 3 => 4 }
+    session[:cart] = { 3 => 2, 5 => 4 }
     @order_items = []
     session[:cart].each do |product, quantity|
       @order_items.push(OrderItem.new(:product_id => product, :quantity => quantity))
