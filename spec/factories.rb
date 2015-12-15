@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   factory :product do
-    name "Water Noodle"
+    name "Water bottle"
     price 500
     stock 10
     association :user
@@ -22,13 +22,14 @@ FactoryGirl.define do
     association :product
   end
 
-  factory :orderitem do
-
+  factory :orderitem, class: OrderItem do
+    quantity 4
+    association :order
+    association :product
   end
 
   factory :category do
     name "toy"
-    product
   end
 
 end

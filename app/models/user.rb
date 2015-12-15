@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :orders, through: :order_items
   has_secure_password
 
-  before_save { self.email = email.downcase } # ensures emails are all lowercase
+  before_validation { self.email = email.downcase if self.email } # ensures emails are all lowercase
 
   validates :username, :email, presence: true
   validates :username, :email, uniqueness: true
