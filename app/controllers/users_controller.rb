@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :require_logout, only: [:new]
 
   def index
-    @users = User.all
+    @users = User.all.sort_by { |user| user.average_rating }.reverse!
   end
 
   def show
