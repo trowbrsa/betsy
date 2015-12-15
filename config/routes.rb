@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get "/users/:id/products" => "users#products", as: :user_products
 
 
-  resources :categories
+  resources :categories, except: [:new]
   resources :users do
-    resources :orders do
+    resources :orders, only: [:index, :show] do
       resources :order_items
     end
     resources :products, except: [:index, :destroy] do
@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
   delete 'logout/' => 'sessions#destroy', as: :logout
+  get 'checkout/' => 'orders#new', as: :checkout_new
+  post 'checkout/' => 'orders#create', as: :checkout_submit
+  get 'checkout/:order_id' => 'orders#confirm', as: :confirmation
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
