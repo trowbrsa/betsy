@@ -19,7 +19,7 @@ class CartsController < ApplicationController
     end
     # if the cart already has the product -> just add one
     # if not -> set the quantity to one
-    if cart[product_id]!= 0
+    if cart[product_id]
       cart[product_id] = cart[product_id] + 1
     else
       cart[product_id] = 1
