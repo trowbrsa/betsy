@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :require_login, only: [:index]
   before_action :correct_user, only: [:index]
   before_action :order_items, only: [:new, :create]
-  before_action :find_user, except: [:new, :create]
+  before_action :find_user, except: [:new, :create, :confirm]
 
   def index
     @orders = @user.orders
@@ -19,20 +19,22 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order_items.each do |oi|
-      oi.save
       @order.order_items << oi
+      oi.save
     end
     if @order.save
-      redirect_to user_orders_path
+      redirect_to confirmation_path(@order)
     else
       render :new
     end
   end
 
+  def confirm
+  end
+
   private
 
   def order_items
-    session[:cart] = { 3 => 2, 5 => 4 }
     @order_items = []
     session[:cart].each do |product, quantity|
       @order_items.push(OrderItem.new(:product_id => product, :quantity => quantity))
