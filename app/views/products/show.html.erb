@@ -28,9 +28,11 @@
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-1 col-sm-12">
-    <h3>Purchased this Product? Leave a Review:</h3>
-    <!-- review form -->
-    <%= render "reviews/form", :review => @review, :product => @product %>
+    <% if !logged_in? || current_user.id != params[:user_id].to_i %>
+      <h3>Purchased this Product? Leave a Review:</h3>
+      <!-- review form -->
+      <%= render "reviews/form", :review => @review, :product => @product %>
+    <% end %>
   </div>
   <div class="col-md-4 col-sm-12">
     <h3>Product Reviews</h3>

@@ -17,7 +17,5 @@
         </tr>
   <% end %>
     </table>
-
+ <p> Items total $ <%= Cart.subtotal(@cart) %> </p>
     <%= link_to "Proceed to Checkout", checkout_new_path %>
-
-<!-- <p> Items total method %> </p> -->
