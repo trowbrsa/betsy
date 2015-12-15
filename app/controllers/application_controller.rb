@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def correct_user
-    id = params[:id] || params[:user_id]
+    id = params[:user_id] || params[:id]
     @user = User.find(id)
     if @user == current_user
     else
