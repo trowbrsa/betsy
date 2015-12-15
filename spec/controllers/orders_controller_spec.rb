@@ -45,7 +45,6 @@ RSpec.describe OrdersController, type: :controller do
     it "redirects to index page" do
       # session[:cart] = { 1 => 2, 3 => 4 }
       session[:user_id] = sample_user.id
-      binding.pry
       post :create, good_params
       expect(subject).to redirect_to user_orders_path
     end
