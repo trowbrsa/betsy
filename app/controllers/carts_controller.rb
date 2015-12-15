@@ -9,7 +9,8 @@ class CartsController < ApplicationController
   end
 
   def add
-    product_id = params[:product_id]
+    product = Product.find(params[:id])
+    product_id = params[:id]
     if session[:cart]
       cart = session[:cart]
     else
@@ -24,7 +25,7 @@ class CartsController < ApplicationController
       cart[product_id] = 1
     end
 
-    redirect_to product_path(product_id)
+    redirect_to user_product_path(product.user_id, product.id)
   end
 
   def clearCart

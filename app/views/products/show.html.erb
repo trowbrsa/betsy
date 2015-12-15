@@ -27,7 +27,7 @@
       <h4><%= dollar_price(@product.price) %></h4>
       <p><%= @product.description %></p>
       <p class="num_available"><%= @product.stock %> Available</p>
-      <%= form_tag({controller: "carts", action: "add_product"}, method: :post) do %>
+      <%= form_tag({controller: "carts", action: "add"}, method: :post , id: @product_id ) do %>
         <%= submit_tag "Add to Cart", class: "btn btn-lg btn-primary btn-block" %>
         <% end %>
   </div> <!-- end info section -->
