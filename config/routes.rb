@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "/users/:id/products" => "users#products", as: :user_products
 
 
-  resources :categories
+  resources :categories, except: [:new]
   resources :users do
     resources :orders, only: [:index, :show] do
       resources :order_items

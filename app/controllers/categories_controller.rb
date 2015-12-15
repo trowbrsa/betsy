@@ -3,18 +3,13 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @category = Category.new
   end
 
 
   def show
     @products = @category.products.paginate(page: params[:page], per_page: 12)
   end
-
-
-  def new
-    @category = Category.new
-  end
-
 
   def edit
   end
@@ -24,7 +19,8 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to categories_path
     else
-      render :new
+      @categories = Category.all
+      render :index
     end
   end
 
