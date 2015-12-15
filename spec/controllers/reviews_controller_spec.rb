@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe ReviewsController, type: :controller do
   let(:review) { FactoryGirl.create(:review) }
