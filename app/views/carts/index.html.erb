@@ -1,24 +1,28 @@
 <h1> Cart </h1>
-
-<% if !flash.now[:error].nil? %>
-  <%= flash.now[:error] %>
-<% end %>
-
-    <table>
-      <th> Product </th>
-      <th> Description </th>
-      <th> Price </th>
-      <th>quantity </th>
-      <% @cart.each do |product_id, quantity| %>
-        <% product = Product.find(product_id) %>
-        <tr>
-          <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
-          <td> <%= product.description %> </td>
-          <td> <%= product.price %> </td>
-          <td> <%= quantity %> </td>
-          <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
-        </tr>
-  <% end %>
+<% if session[:cart] == nil %>
+<p>
+  Cart is empty!
+</p>
+<% else %>
+  <table>
+    <th> Product </th>
+    <th> Description </th>
+    <th> Price </th>
+    <th>quantity </th>
+    <% @cart.each do |product_id, quantity| %>
+      <% product = Product.find(product_id) %>
+      <tr>
+        <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
+        <td> <%= product.description %> </td>
+        <td> <%= product.price %> </td>
+        <td> <%= quantity %> </td>
+        <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+      </tr>
+      <% end %>
     </table>
- <p> Items total $ <%= Cart.subtotal(@cart) %> </p>
+    <p> Items total <%= dollar_price(Cart.subtotal(@cart)) %> </p>
     <%= link_to "Proceed to Checkout", checkout_new_path %>
+<% end %>
+<p>
+  <%= link_to "Continue Shopping", products_path %>
+</p>

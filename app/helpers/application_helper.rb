@@ -21,4 +21,8 @@ module ApplicationHelper
   def readable_date(date)
     date.strftime('%b %-e, %Y')
   end
+
+  def readable_time(date)
+    date.strftime("%l:%M%p")
+  end
 end

@@ -1,1 +1,33 @@
 <h1>Thank you for shopping on Wetsy!</h1>
+<p>
+  <table>
+    <th>
+      Items purchased
+    </th>
+    <th>
+      Quantity
+    </th>
+    <th>
+      Subtotal
+    </th>
+    <% @order.order_items.each do |oi| %>
+    <tr>
+      <td><%= link_to oi.product.name, user_product_path(oi.product.user, oi.product) %></td>
+      <td><%= oi.quantity %></td>
+      <td><%= dollar_price(oi.quantity * oi.product.price) %></td>
+    <% end %>
+    </tr>
+  </table>
+</p>
+<p>
+  <strong>Order Total:</strong>
+  <%= dollar_price(@total) %>
+</p>
+<p>
+  <strong>Purchased:</strong>
+  <%= readable_date(@order.created_at) %> at <%= readable_time(@order.created_at) %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>

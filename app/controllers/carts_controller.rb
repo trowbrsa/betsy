@@ -25,7 +25,7 @@ class CartsController < ApplicationController
         cart[product_id] = cart[product_id] + 1
         redirect_to cart_path
       else
-        flash[:error] = "The product is not on stock"
+        flash[:error] = "The product is out of stock"
         redirect_to user_product_path(product.user_id, product.id)
       end
     else
@@ -44,7 +44,7 @@ class CartsController < ApplicationController
     cart = session[:cart]
     product_id = params[:id]
     cart.delete(product_id)
+    session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
   end
-
 end
