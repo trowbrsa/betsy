@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
       oi.save
     end
     if @order.save
+      session[:cart] = nil
       redirect_to confirmation_path(@order)
     else
       render :new
@@ -30,6 +31,8 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    @order = Order.find(params[:order_id])
+    @total = @order.total_cost
   end
 
   private
