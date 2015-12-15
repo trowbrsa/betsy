@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :require_login, only: [:index]
   before_action :correct_user, only: [:index]
   before_action :order_items, only: [:new, :create]
-  before_action :find_user
+  before_action :find_user, except: [:new, :create]
 
   def index
     @orders = @user.orders
