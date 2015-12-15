@@ -11,12 +11,15 @@ Rails.application.routes.draw do
     end
     resources :products, except: [:index, :destroy] do
       resources :reviews, except: [:new]
+      member do
+        post 'cart/' => 'carts#add', as: :add_to_cart
+      end
     end
   end
 
 
   get 'cart/' => 'carts#index', as: :cart
-  post 'cart/' => 'carts#add', as: :add_to_cart
+
   get 'products/' => 'products#index', as: :products
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
