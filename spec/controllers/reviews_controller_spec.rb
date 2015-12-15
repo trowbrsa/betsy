@@ -13,18 +13,18 @@ RSpec.describe ReviewsController, type: :controller do
     end
   end
 
-  describe "GET 'edit'" do
-    it "renders edit page" do
-      get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
-      expect(subject).to render_template :edit
-    end
-
-    it "assigns the requested review as @review" do
-      get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
-      expect(assigns(:review)).to eq(review)
-    end
-
-  end
+  # describe "GET 'edit'" do
+  #   it "renders edit page" do
+  #     get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
+  #     expect(subject).to render_template :edit
+  #   end
+  #
+  #   it "assigns the requested review as @review" do
+  #     get :edit, product_id: review.product_id, user_id: review.product.user_id, id: review.id
+  #     expect(assigns(:review)).to eq(review)
+  #   end
+  #
+  # end
 
   describe "GET 'show'" do
     it "renders show page" do
@@ -55,10 +55,10 @@ RSpec.describe ReviewsController, type: :controller do
       }
     }
     context "with valid params" do
-      it "redirects to user_product_reviews" do
+      it "redirects to product show page" do
         post :create, valid_create_attributes
         new_review = Review.last
-        expect(subject).to redirect_to user_product_reviews_path(new_review.product.user_id, new_review.product_id)
+        expect(subject).to redirect_to user_product_path(new_review.product.user_id, new_review.product_id)
       end
       it "creates a new Review" do
         expect {
@@ -77,9 +77,9 @@ RSpec.describe ReviewsController, type: :controller do
         post :create, invalid_create_attributes
         expect(assigns(:review)).to be_a_new(Review)
       end
-      it "re-renders the new template" do
+      it "re-renders the product show template" do
         post :create, invalid_create_attributes
-        expect(subject).to render_template :new
+        expect(subject).to redirect_to user_product_path(product.user_id, product.id)
       end
     end
   end

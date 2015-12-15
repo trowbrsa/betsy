@@ -23,7 +23,8 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to user_product_path(@review.product.user, @review.product)
     else
-      render :new
+      flash[:error] = @review.errors.full_messages.first
+      redirect_to user_product_path(@review.product.user, @review.product)
     end
   end
 
