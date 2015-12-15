@@ -14,32 +14,51 @@
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-1 col-sm-12"> <!-- image section -->
-    <div class="thumbnail">
-      <div class="img-container">
-      <%= image_tag @product.photo_url, alt: "product photo" %>
-      </div>
-    </div>
+    <%= image_tag @product.photo_url, alt: "product photo", class: "img-responsive" %>
   </div> <!-- end image section -->
-  <div class="col-md-3 col-sm-12"> <!-- info section -->
-
-      <h2><%= @product.name %>
-      </h2>
+  <div class="col-md-4 col-sm-12"> <!-- info section -->
+      <h2><%= @product.name %></h2>
       <h4><%= dollar_price(@product.price) %></h4>
       <p><%= @product.description %></p>
       <p class="num_available"><%= @product.stock %> Available</p>
       <%= form_tag({controller: "carts", action: "add_product"}, method: :post) do %>
-        <%= submit_tag "Add to Cart", class: "btn btn-lg btn-primary btn-block" %>
+        <%= submit_tag "Add to Cart", class: "btn btn-lg btn-success btn-block" %>
         <% end %>
   </div> <!-- end info section -->
 </div>
 <div class="row">
-  <div class="col-sm-6">
-    <!-- add a review form -->
-    <p>TODO: Add a form for adding a review</p>
+  <div class="col-md-6 col-md-offset-1 col-sm-12">
+    <h3>Purchased this Product? Leave a Review:</h3>
+    <!-- review form -->
+    <%= render "reviews/form", :review => @review, :product => @product %>
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-4 col-sm-12">
+    <h3>Product Reviews</h3>
     <!-- ratings -->
-    <p>TODO: Add the list of ratings</p>
-    <p></p>
+    <% @product.reviews.each do |review| %>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          <% review.rating.times do %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+          <% (5 - review.rating).times do %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+          <% end %>
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <p class="text-right"><%= readable_date(review.updated_at) %></p>
+      </div>
+    </div>
+    <% if review.description %>
+      <div class="row">
+        <div class="col-sm-12">
+          <p><%= review.description %></p>
+        </div>
+      </div>
+    <% end %>
+    <hr>
+    <% end %>
   </div>
 </div>
