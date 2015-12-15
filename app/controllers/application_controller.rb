@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if current_user.nil?
-      flash[:error] = "You must be logged in."
+      flash[:error] = "You must be logged in to complete that action."
       redirect_to login_path
     end
   end
