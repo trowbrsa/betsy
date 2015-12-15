@@ -23,7 +23,12 @@
       <p class="num_available"><%= @product.stock %> Available</p>
       <%= form_tag({controller: "carts", action: "add"}, method: :post ) do %>
         <%= submit_tag "Add to Cart", class: "btn btn-lg btn-success btn-block" %>
-        <% end %>
+      <% end %>
+
+      <% if !flash[:error].nil? %>
+        <%= flash[:error] %>
+      <% end %>
+
   </div> <!-- end info section -->
 </div>
 <div class="row">

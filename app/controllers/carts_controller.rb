@@ -20,12 +20,19 @@ class CartsController < ApplicationController
     # if the cart already has the product -> just add one
     # if not -> set the quantity to one
     if cart[product_id]
-      cart[product_id] = cart[product_id] + 1
+      #check that the product is on stock
+      if product.stock >= cart[product_id] + 1
+        cart[product_id] = cart[product_id] + 1
+        redirect_to cart_path
+      else
+        flash[:error] = "The product is not on stock"
+        redirect_to user_product_path(product.user_id, product.id)
+      end
     else
       cart[product_id] = 1
+      redirect_to cart_path
     end
 
-    redirect_to cart_path
   end
 
   def clearCart
