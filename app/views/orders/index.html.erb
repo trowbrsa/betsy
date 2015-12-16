@@ -28,6 +28,9 @@
             <td>
               <%= link_to "View Order", user_order_path(@user.id, order.id) %>
             </td>
+            <td>
+              <%= button_to "Mark as Shipped", shipped_path(@user.id, order.id, order_item.id) %>
+            </td>
           </tr>
         <% end %>
       <% end %>

@@ -43,4 +43,8 @@ class CartsController < ApplicationController
     session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
   end
+
+  def update
+  end
+
 end

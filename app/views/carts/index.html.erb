@@ -1,8 +1,8 @@
 <h1> Cart </h1>
 <% if session[:cart] == nil %>
-<p>
-  Cart is empty!
-</p>
+  <p>
+    Cart is empty!
+  </p>
 <% else %>
   <table>
     <th> Product </th>
@@ -15,8 +15,10 @@
         <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
         <td> <%= product.description %> </td>
         <td> <%= product.price %> </td>
+        <td>
         <td> <%= quantity %> </td>
         <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+
       </tr>
       <% end %>
     </table>
