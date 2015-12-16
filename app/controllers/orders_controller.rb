@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :require_login, only: [:index]
   before_action :correct_user, only: [:index]
   before_action :order_items, only: [:new, :create]
-  before_action :find_user, except: [:new, :create, :confirm]
+  before_action :find_user, except: [:new, :create, :confirm, :cancel]
 
   def index
     @orders = @user.orders.uniq.sort
@@ -23,6 +23,15 @@ class OrdersController < ApplicationController
     else
       @order = Order.new
     end
+  end
+
+
+  def cancel
+    order = Order.find(params[:id])
+    order.update(:status => "cancelled")
+    Product.increment_stock(order)
+    flash[:error] = "Your order has been cancelled"
+    redirect_to root_path
   end
 
   def create

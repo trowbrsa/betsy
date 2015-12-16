@@ -38,8 +38,10 @@ class OrderItemsController < ApplicationController
     order_item = OrderItem.find(params[:id])
     if !order_item.shipped
       order_item.update(:shipped => true)
+      Order.check_order_shipped(order_item)
     else
       order_item.update(:shipped => false)
+      Order.check_order_shipped(order_item)
     end
     redirect_to user_orders_path(user.id)
   end
