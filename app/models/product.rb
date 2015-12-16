@@ -28,6 +28,13 @@ class Product < ActiveRecord::Base
     return review_average.round
   end
 
+  def self.increment_stock(order)
+    order.order_items.each do |order_item|
+      product = Product.find(order_item.product_id)
+      product.stock += order_item.quantity
+    end
+  end
+
   def self.decrement_stock(products_sold)
     products_sold.each do |p, q|
       p.stock -= q

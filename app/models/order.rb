@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
           order.update(:status => "shipped")
         end
       else
-        order.update(:status => "completed")
+        order.update(:status => "paid")
       end
     end
 end
