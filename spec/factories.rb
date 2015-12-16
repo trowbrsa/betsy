@@ -14,7 +14,15 @@ FactoryGirl.define do
   end
 
   factory :order do
-
+    email "user1@example.com"
+    street "1215 4th Ave"
+    city "Seattle"
+    state "WA"
+    zip "98161"
+    cc_num "12345678"
+    cc_exp Time.now
+    cc_cvv "360"
+    cc_name "User One"
   end
 
   factory :review do
