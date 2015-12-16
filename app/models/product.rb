@@ -28,4 +28,10 @@ class Product < ActiveRecord::Base
     return review_average.round
   end
 
+  def self.decrement_stock(products_sold)
+    products_sold.each do |p, q|
+      p.stock -= q
+      p.save
+    end
+  end
 end

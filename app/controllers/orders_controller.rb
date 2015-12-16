@@ -13,16 +13,28 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    not_enough_stock = false
+    @order_items.each do |oi|
+      not_enough_stock = true if oi.product.stock < oi.quantity
+    end
+    if not_enough_stock
+      flash[:error] = "There is not enough stock to complete your purchase. Please update your cart."
+      redirect_to cart_path
+    else
+      @order = Order.new
+    end
   end
 
   def create
     @order = Order.new(order_params)
+    products_sold = []
     @order_items.each do |oi|
       @order.order_items << oi
+      products_sold.push([oi.product, oi.quantity])
       oi.save
     end
     if @order.save
+      Product.decrement_stock(products_sold)
       session[:cart] = nil
       redirect_to confirmation_path(@order)
     else
