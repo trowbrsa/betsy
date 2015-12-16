@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let (:user) { FactoryGirl.create(:user) }
+  let (:review) { FactoryGirl.create(:review) }
+  let (:user) { review.product.user}
   it { is_expected.to have_secure_password }
 
   describe ".validates" do
@@ -23,6 +24,18 @@ RSpec.describe User, type: :model do
       expect(User.new(email: 'nemo@bar+baz.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
       expect(User.new(email: ' ', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
       expect(User.new(email: 'nemo@nemo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to be_valid
+    end
+
+  end
+
+  describe ".average_rating" do
+    it "returns 0 if there are no products" do
+      expect(User.new().average_rating).to eq 0
+    end
+    it "returns the correct average for products" do
+      expect(user.average_rating).to eq review.rating
+      Review.create(product_id: review.product.id, rating: 3)
+      expect(user.average_rating).to eq 3.5
     end
 
   end
