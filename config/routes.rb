@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get "/users/:id/products" => "users#products", as: :user_products
 
-
+  post '/users/:id/orders/:id/shipped' => 'orders#shipped', as: :shipped
   resources :categories, except: [:new]
   resources :users do
     resources :orders, only: [:index, :show] do
