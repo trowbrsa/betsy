@@ -30,4 +30,6 @@
 <p>
   <strong>Status:</strong>
   <%= @order.status %>
+
+  <%= button_to "Cancel your order", cancel_order_path(@order.id), data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
 </p>
