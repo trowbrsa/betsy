@@ -21,6 +21,18 @@ class CartsController < ApplicationController
     end
   end
 
+  def update
+    product_id = params[:id]
+    new_quantity = params[:product][:new_quantity].to_i
+    product = Product.find(product_id)
+    if product.stock >= new_quantity
+      session[:cart][product_id] = new_quantity
+    else
+      flash[:error] = "Sorry, there is not enough product in stock to fulfill your request."
+    end
+    redirect_to cart_path
+  end
+
   def clearCart
     session[:cart] = nil
     redirect_to index
@@ -33,4 +45,5 @@ class CartsController < ApplicationController
     session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
   end
+
 end
