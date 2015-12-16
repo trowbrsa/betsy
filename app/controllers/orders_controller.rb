@@ -30,14 +30,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def shipped
-    order_item = OrderItem.find(params[:order_item].id)
-    if !order_item.shipped
-      order_item.update(:shipped => true)
-    else
-      order_item.update(:shipped => false)
-    end
-  end
 
   def confirm
     @order = Order.find(params[:order_id])

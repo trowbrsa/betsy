@@ -33,9 +33,20 @@ class OrderItemsController < ApplicationController
       end
   end
 
+  def shipped
+    user = User.find(params[:user_id])
+    order_item = OrderItem.find(params[:id])
+    if !order_item.shipped
+      order_item.update(:shipped => true)
+    else
+      order_item.update(:shipped => false)
+    end
+    redirect_to user_orders_path(user.id)
+  end
+
   def update
-     @order_item.update(order_item_params)
-     redirect_to user_order_order_items_path
+   @order_item.update(order_item_params)
+   redirect_to user_order_order_items_path
   end
 
   def destroy
