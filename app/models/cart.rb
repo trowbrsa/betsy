@@ -1,12 +1,13 @@
 class Cart
 
- def self.subtotal(cart)
-   subtotal = 0
+ def self.total(cart)
+   total = 0
    cart.each do |product, quantity|
-     price = Product.find(product).price.to_i
-     subtotal += (price * quantity)
+     product = Product.find(product)
+     price = product.price.to_i
+     total += (price * quantity)
    end
-   return subtotal
+   return total
  end
 
 
