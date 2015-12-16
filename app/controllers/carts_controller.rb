@@ -1,11 +1,7 @@
 class CartsController < ApplicationController
 
   def index
-    if session[:cart]
-      @cart = session[:cart]
-    else
-      @cart = {}
-    end
+    @cart = session[:cart]
   end
 
   def add

@@ -37,19 +37,18 @@
 
 <p>
   <strong>Credit Card Expiration:</strong>
-  <%= @order.cc_exp %>
+  <%= readable_date(@order.cc_exp) %>
 </p>
 
 <p>
-  <strong>Order Items from <%= @user.name %>:</strong>
+  <strong>Order Items purchased from <%= @user.name %>:</strong>
   <br>
   <% @order.order_items.each do |oi| %>
     <% if oi.product.user == @user %>
-      <%= oi.product.name %>(<%= oi.quantity %>)
+      <%= oi.product.name %>: <%= oi.quantity %>
       <br>
     <% end %>
   <% end %>
 </p>
 
 <%= link_to 'Back', user_orders_path(@user.id, @order.id) %>
-<%= link_to 'Order Item', user_order_order_items_path(@user.id, @order.id) %>
