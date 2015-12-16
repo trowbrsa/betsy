@@ -1,26 +1,35 @@
 <h1> Cart </h1>
 <% if session[:cart] == nil %>
-  <p>
-    Cart is empty!
-  </p>
+<p> Your cart is empty. Keep shopping! </p>
 <% else %>
-  <table>
-    <th> Product </th>
-    <th> Description </th>
-    <th> Price </th>
-    <th>quantity </th>
-    <% @cart.each do |product_id, quantity| %>
-      <% product = Product.find(product_id) %>
-      <tr>
-        <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
-        <td> <%= product.description %> </td>
-        <td> <%= product.price %> </td>
-        <td>
-        <td> <%= quantity %> </td>
-        <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
-
-      </tr>
+  <table class="table table-hover">
+    <thead>
+      <th>Product</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th># Available</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @cart.each do |product_id, quantity| %>
+        <% product = Product.find(product_id) %>
+        <tr>
+          <td> <%= link_to product.name, user_product_path(product.user_id, product.id) %> </td>
+          <td> <%= product.description %> </td>
+          <td> <%= dollar_price(product.price) %> </td>
+          <td> <%= product.stock %> </td>
+          <%= form_tag(cart_user_product_path(product.user.id, product.id), method: :patch) do %>
+            <td><%= number_field(:product, :new_quantity, in: 1..product.stock, step: 1, value: quantity) %></td>
+            <td> <%= dollar_price(product.price * quantity) %></td>
+            <td><%= submit_tag("Update") %></td>
+          <% end %>
+          <td> <%= link_to 'Remove', remove_user_product_path(product.user_id, product.id), method: :delete, data: { confirm: 'Are you sure?' } %> </td>
+        </tr>
       <% end %>
+    </tbody>
     </table>
     <p> Items total <%= dollar_price(Cart.subtotal(@cart)) %> </p>
     <%= link_to "Proceed to Checkout", checkout_new_path %>

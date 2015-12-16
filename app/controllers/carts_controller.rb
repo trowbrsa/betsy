@@ -7,28 +7,30 @@ class CartsController < ApplicationController
   def add
     product = Product.find(params[:id])
     product_id = params[:id]
-    if session[:cart]
-      cart = session[:cart]
-    else
-      session[:cart] = {}
-      cart = session[:cart]
-    end
-    # if the cart already has the product -> just add one
-    # if not -> set the quantity to one
-    if cart[product_id]
-      #check that the product is on stock
-      if product.stock >= cart[product_id] + 1
-        cart[product_id] = cart[product_id] + 1
-        redirect_to cart_path
-      else
-        flash[:error] = "The product is out of stock"
-        redirect_to user_product_path(product.user_id, product.id)
-      end
-    else
+    session[:cart] = {} if !session[:cart]
+    cart = session[:cart]
+    if cart[product_id].nil? && product.stock > 0 # adding product for the first time
       cart[product_id] = 1
       redirect_to cart_path
+    elsif cart[product_id] && product.stock >= cart[product_id] + 1 # adding product already in cart
+      cart[product_id] += 1
+      redirect_to cart_path
+    else
+      flash[:error] = "Sorry, there is not enough product in stock to fulfill your request."
+      redirect_to user_product_path(product.user_id, product.id)
     end
+  end
 
+  def update
+    product_id = params[:id]
+    new_quantity = params[:product][:new_quantity].to_i
+    product = Product.find(product_id)
+    if product.stock >= new_quantity
+      session[:cart][product_id] = new_quantity
+    else
+      flash[:error] = "Sorry, there is not enough product in stock to fulfill your request."
+    end
+    redirect_to cart_path
   end
 
   def clearCart
@@ -42,9 +44,6 @@ class CartsController < ApplicationController
     cart.delete(product_id)
     session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
-  end
-
-  def update
   end
 
 end
