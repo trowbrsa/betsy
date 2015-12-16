@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :find_user, except: [:new, :create, :confirm]
 
   def index
-    @orders = @user.orders
+    @orders = @user.orders.uniq.sort
   end
 
   def show
