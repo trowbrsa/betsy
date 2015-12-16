@@ -7,13 +7,14 @@ class CartsController < ApplicationController
   def add
     product = Product.find(params[:id])
     product_id = params[:id]
+    quantity = params[:product][:add_quantity].to_i
     session[:cart] = {} if !session[:cart]
     cart = session[:cart]
-    if cart[product_id].nil? && product.stock > 0 # adding product for the first time
-      cart[product_id] = 1
+    if cart[product_id].nil? && product.stock > quantity # adding product for the first time
+      cart[product_id] = quantity
       redirect_to cart_path
-    elsif cart[product_id] && product.stock >= cart[product_id] + 1 # adding product already in cart
-      cart[product_id] += 1
+    elsif cart[product_id] && product.stock >= cart[product_id] + quantity # adding to product already in cart
+      cart[product_id] += quantity
       redirect_to cart_path
     else
       flash[:error] = "Sorry, there is not enough product in stock to fulfill your request."
