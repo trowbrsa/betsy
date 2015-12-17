@@ -21,6 +21,7 @@ class ProductsController < ApplicationController
   end
 
   def create
+    params[:product][:price] = params[:product][:price].to_f * 100
     @product = Product.create(product_params) do |p|
       p.user_id = @user.id
       if params[:categories].nil?
