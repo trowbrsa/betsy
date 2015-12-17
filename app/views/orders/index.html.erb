@@ -13,6 +13,7 @@
   <strong>Total Revenue:</strong> <%= dollar_price(@total_revenue) %>
 </p>
 
+<%= link_to "Products to be shipped", not_shipped_yet_path(@user.id) %>
 <h3>Orders</h3>
 <p>
   <strong>Total Paid Orders (Not Shipped):</strong> <%= @paid_orders.count %>
