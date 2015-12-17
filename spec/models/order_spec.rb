@@ -28,4 +28,15 @@ RSpec.describe Order, type: :model do
       expect(Order.create(good_params.merge(email: "kelly@kelly.com"))).to be_valid
     end
   end
+
+  describe ".total_cost" do
+    let(:order_item) { FactoryGirl.create(:orderitem) }
+    it "calculates the total for an order" do
+      order = order_item.order
+      item_price = order_item.product.price
+      quantity = order_item.quantity
+      total = order.total_cost
+      expect(total).to eq item_price * quantity
+    end
+  end
 end
