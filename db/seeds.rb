@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 require 'csv'
-require 'pry'
+# require 'pry'
 
 tables = {
   "Category" => './seeds_csvs/categories.csv',
