@@ -5,6 +5,16 @@ RSpec.describe Order, type: :model do
     {street: "test" , city: "Seattle", state: "WA", zip: "98116", cc_num: "12345678", cc_cvv: "123", cc_name: "Kelly", cc_exp: "20151215"}
   }
 
+  let (:user_1) { User.create(email: 'nemo@foo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333") }
+  let (:user_2) { User.create(email: 'nemo1@foo.com', name: "Bob1", username: "bobi1", password: "333", password_confirmation: "333") }
+  let (:product_1) { Product.create(name: "Sample", price: 10, stock: 5, user_id: user_1.id) }
+  let (:product_2) { Product.create(name: "Sample1", price: 15, stock: 5, user_id: user_2.id) }
+  let (:order_item_1) { OrderItem.create(product_id: product_1.id, quantity: 3) }
+  let (:order_item_2) { OrderItem.create(product_id: product_2.id, quantity: 2) }
+  let (:order_1) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_1])) }
+  let (:order_2) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_2])) }
+  let (:orders) { [order_1, order_2] }
+
   describe ".validates" do
     it { is_expected.to validate_length_of(:zip) }
     it { is_expected.to validate_presence_of(:email) }
@@ -27,7 +37,7 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe ".total_cost" do
+  describe "#total_cost" do
     let(:order_item) { FactoryGirl.create(:orderitem) }
 
     it "calculates the total for an order" do
@@ -37,19 +47,37 @@ RSpec.describe Order, type: :model do
       total = order.total_cost
       expect(total).to eq item_price * quantity
     end
+  end
 
+  describe ".user_orders_revenue" do
     it "calculates a user's revenue from a collection of orders" do
-      user_1 =  User.create(email: 'nemo@foo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")
-      user_2 = User.create(email: 'nemo1@foo.com', name: "Bob1", username: "bobi1", password: "333", password_confirmation: "333")
-      product_1 = Product.create(name: "Sample", price: 10, stock: 5, user_id: user_1.id)
-      product_2 = Product.create(name: "Sample1", price: 15, stock: 5, user_id: user_2.id)
-      order_item_1 = OrderItem.create(product_id: product_1.id, quantity: 3)
-      order_item_2 = OrderItem.create(product_id: product_2.id, quantity: 2)
-      order_1 = Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_1]))
-      order_2 = Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_2]))
-      orders = [order_1, order_2]
-
       expect(Order.user_orders_revenue(orders, user_1)).to eq(30)
     end
   end
+
+  describe ".check_order_shipped" do
+    it "updates the order status to 'shipped' if all order items have shipped" do
+
+    end
+
+    it "changes the order status back to 'paid' if an order item's shipment is cancelled" do
+
+    end
+  end
+
+  def self.check_order_shipped(order_item)
+    order = Order.find(order_item.order_id)
+    if order[:status] != "shipped"
+      count = 0
+      order.order_items.each do |order_item|
+        count += 1 if order_item.shipped
+      end
+      if count == order.order_items.count
+        order.update(:status => "shipped")
+      end
+    else
+      order.update(:status => "paid")
+    end
+  end
+
 end

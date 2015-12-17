@@ -30,7 +30,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.check_order_shipped(order_item)
-    order = Order.find(order_item.order_id)
+    order = self.find(order_item.order_id)
     if order[:status] != "shipped"
       count = 0
       order.order_items.each do |order_item|
