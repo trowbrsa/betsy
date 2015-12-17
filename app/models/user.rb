@@ -18,6 +18,6 @@ class User < ActiveRecord::Base
       total_rating += product.review_total
       total_reviews += product.reviews.count
     end
-    return total_rating / total_reviews
+    total_reviews == 0 ? (return 0) : (return total_rating / total_reviews)
   end
 end
