@@ -64,20 +64,4 @@ RSpec.describe Order, type: :model do
 
     end
   end
-
-  def self.check_order_shipped(order_item)
-    order = Order.find(order_item.order_id)
-    if order[:status] != "shipped"
-      count = 0
-      order.order_items.each do |order_item|
-        count += 1 if order_item.shipped
-      end
-      if count == order.order_items.count
-        order.update(:status => "shipped")
-      end
-    else
-      order.update(:status => "paid")
-    end
-  end
-
 end

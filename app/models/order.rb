@@ -33,8 +33,8 @@ class Order < ActiveRecord::Base
     order = self.find(order_item.order_id)
     if order[:status] != "shipped"
       count = 0
-      order.order_items.each do |order_item|
-        count += 1 if order_item.shipped
+      order.order_items.each do |oi|
+        count += 1 if oi.shipped
       end
       if count == order.order_items.count
         order.update(:status => "shipped")
