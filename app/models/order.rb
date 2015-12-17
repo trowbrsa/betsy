@@ -44,11 +44,37 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.filter_orders(orders, status)
+  def self.filter_orders(orders, status = "", order_item_status = "")
     filtered_orders = []
-    orders.each do |order|
-      filtered_orders.push(order) if Order.find(order.id).status.downcase == status.downcase
+    if order_item_status == "Not Shipped"
+      shipped = false
+    elsif order_item_status == "Shipped"
+      shipped = true
     end
-    return filtered_orders
+
+    orders.each do |order|
+      current_order = Order.find(order.id)
+      # two filters
+      if status!= "" && order_item_status!= ""
+        # check order status
+        if current_order.status.downcase == status.downcase
+          current_order.order_items.each do |order_item|
+            #check order_item status
+            filtered_orders.push(order)  if shipped == order_item.shipped
+          end
+        end
+      #only order status changed
+      elsif current_order.status.downcase == status.downcase
+        filtered_orders.push(order)
+      #only order_item changed
+      else
+        current_order.order_items.each do |order_item|
+          #check order_item status
+          filtered_orders.push(order) if shipped == order_item.shipped
+        end
+      end
+      return filtered_orders
+    end
+
   end
 end
