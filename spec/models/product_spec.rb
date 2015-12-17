@@ -34,10 +34,10 @@ RSpec.describe Product, type: :model do
   end
   describe "review methods" do
     let(:r1) {
-      Review.create(rating: 3)
+      Review.create(product_id: sample_product.id, rating: 3)
     }
     let(:r2) {
-      Review.create(rating: 4)
+      Review.create(product_id: sample_product.id, rating: 4)
     }
     it "calculates the correct review statistics" do
       sample_product.reviews = [r1, r2]
@@ -45,8 +45,7 @@ RSpec.describe Product, type: :model do
       expect(sample_product.review_rounded).to eq(4)
     end
     it "returns 0 for no reviews" do
-      expect(sample_product.review_average).to eq(0)
-      expect(sample_product.review_average).to eq(0)
+      expect(Product.new().review_average).to eq(0)
     end
   end
 

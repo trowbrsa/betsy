@@ -32,9 +32,13 @@ RSpec.describe User, type: :model do
     it "returns 0 if there are no products" do
       expect(User.new().average_rating).to eq 0
     end
+    it "returns 0 if there are no ratings" do
+      new_user = FactoryGirl.create(:user, username: "new_user", email: "new_user@example.com")
+      new_user.products << Product.create(name:"new product", price: 500, stock: 10)
+      expect(new_user.average_rating).to eq 0
+    end
     it "returns the correct average for products" do
-      expect(user.average_rating).to eq review.rating
-      Review.create(product_id: review.product.id, rating: 3)
+      user.products.first.reviews << Review.create(product_id: user.products.first.id, rating: 3)
       expect(user.average_rating).to eq 3.5
     end
 
