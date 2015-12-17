@@ -57,7 +57,7 @@ class OrderItemsController < ApplicationController
   #   @order_item.destroy
   #   redirect_to user_order_order_items_path(@user, @order)
   # end
-  # 
+  #
   # private
   #
   #   def set_order_item
