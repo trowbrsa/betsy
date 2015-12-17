@@ -28,7 +28,8 @@ class OrdersController < ApplicationController
 
   def cancel
     order = Order.find(params[:id])
-    order.status = "cancelled"
+    order.update(:status => "cancelled")
+    Product.increment_stock(order)
     flash[:error] = "Your order has been cancelled"
     redirect_to root_path
   end
