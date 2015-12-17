@@ -4,8 +4,6 @@ RSpec.describe OrderItem, type: :model do
   describe ".validates" do
     it { is_expected.to validate_presence_of(:quantity) }
     it { is_expected.to validate_presence_of(:product_id) }
-    it { is_expected.to validate_presence_of(:order_id) }
-    # don't need to validate numericality since it is an integer
 
     it "requires a quantity in correct range" do
       expect(FactoryGirl.build(:orderitem)).to be_valid

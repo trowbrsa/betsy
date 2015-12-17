@@ -39,11 +39,11 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET 'show'" do
     it "renders the show view" do
-      get :show, id: user.id
+      get :show, {id: user.id}, user_id: user.id
       expect(subject).to render_template :show
     end
     it "assigns the requested user as @user" do
-      get :show, id: user.id
+      get :show, {id: user.id}, user_id: user.id
       expect(assigns(:user)).to eq(user)
     end
   end
