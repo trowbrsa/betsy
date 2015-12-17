@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   before_action :correct_user, only: [:new, :edit, :create, :update]
 
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 12)
+    @products = Product.all.includes(:reviews).paginate(page: params[:page], per_page: 12)
   end
 
   def show

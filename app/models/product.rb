@@ -12,16 +12,11 @@ class Product < ActiveRecord::Base
   validates :photo_url, format: {with: /\.(png|jpg)\Z/i}, allow_nil: true
 
   def review_total
-    return reviews.inject(0) { |sum, review| sum + review.rating }
+    reviews.sum(:rating)
   end
 
   def review_average
-    if reviews.any?
-      total = review_total
-      return total * 1.0 / reviews.count
-    else
-      return 0
-    end
+    reviews.average(:rating) || 0
   end
 
   def review_rounded

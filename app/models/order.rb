@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
 
   def total_cost(user = nil)
     total = 0
-    order_items = self.order_items
+    order_items = self.order_items.includes(product: [:user])
     if !(user.nil?)
       order_items_for_total = []
       order_items.each do |oi|
@@ -33,8 +33,8 @@ class Order < ActiveRecord::Base
     order = Order.find(order_item.order_id)
     if order[:status] != "shipped"
       count = 0
-      order.order_items.each do |order_item|
-        count += 1 if order_item.shipped
+      order.order_items.each do |oi|
+        count += 1 if oi.shipped
       end
       if count == order.order_items.count
         order.update(:status => "shipped")

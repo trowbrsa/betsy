@@ -59,7 +59,7 @@
         </tr>
       </thead>
       <tbody>
-          <% order.order_items.each do |order_item| %>
+          <% order.order_items.includes(product: [:user]).each do |order_item| %>
             <% if order_item.product.user == @user %>
               <tr>
                 <td><%= link_to order_item.product.name, user_product_path(order_item.product.user, order_item.product) %></td>
