@@ -6,15 +6,15 @@ class OrdersController < ApplicationController
 
   def index
     @orders = @user.orders.uniq.sort
-    if !(params["Status"].nil? || params["Status"] == "")
-      @orders = Order.filter_orders(@orders, params["Status"])
-    end
     @paid_orders = Order.filter_orders(@orders, "paid")
     @completed_orders = Order.filter_orders(@orders, "shipped")
     @cancelled_orders = Order.filter_orders(@orders, "cancelled")
     @paid_orders_revenue = Order.user_orders_revenue(@paid_orders, @user)
     @completed_orders_revenue = Order.user_orders_revenue(@completed_orders, @user)
     @total_revenue = @paid_orders_revenue + @completed_orders_revenue
+    if !(params["Status"].nil? || params["Status"] == "")
+      @orders = Order.filter_orders(@orders, params["Status"])
+    end
   end
 
   def show
