@@ -29,6 +29,13 @@
   <%= submit_tag 'Filter by Order Status' %>
   <% end %>
 </p>
+<p>
+  <%= form_tag '', :method => :get do %>
+  <%= select_tag "orderItemStatus", options_for_select(["Shipped", "Not Shipped"]), prompt: "Select" %>
+  <%= submit_tag 'Filter by Order Item Status' %>
+  <% end %>
+</p>
+
 <br>
 <% @orders.each do |order| %>
   <h4>Order <%= link_to "##{order.id}", user_order_path(@user.id, order.id) %></h4>
