@@ -6,8 +6,6 @@ RSpec.describe Order, type: :model do
   }
 
   describe ".validates" do
-    it { is_expected.to validate_numericality_of(:zip) }
-    it { is_expected.to validate_numericality_of(:cc_num) }
     it { is_expected.to validate_length_of(:zip) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:street) }

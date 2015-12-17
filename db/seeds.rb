@@ -22,7 +22,9 @@ tables.each do |k, v|
   data = CSV.read(v, :headers => true, :header_converters => :symbol).map{ |row| row.to_hash }
   data.each do |info|
     if k == "Order"
-      Order.create(info)
+      o = Order.new(info)
+      o.cc_exp = Time.now
+      o.save
     elsif k == "Category"
       Category.create(info)
     elsif k == "Product"
