@@ -31,7 +31,8 @@ class Product < ActiveRecord::Base
   def self.increment_stock(order)
     order.order_items.each do |order_item|
       product = Product.find(order_item.product_id)
-      product.stock += order_item.quantity
+      new_quantity = product.stock + order_item.quantity
+      product.update(:stock => new_quantity)
     end
   end
 
