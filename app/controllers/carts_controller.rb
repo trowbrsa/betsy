@@ -34,15 +34,9 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
-  def clearCart
-    session[:cart] = nil
-    redirect_to index
-  end
-
   def destroy
-    cart = session[:cart]
     product_id = params[:id]
-    cart.delete(product_id)
+    session[:cart].delete(product_id)
     session[:cart] = nil if session[:cart] == {}
     redirect_to cart_path
   end

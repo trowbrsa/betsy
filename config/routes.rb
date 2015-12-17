@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/users/:user_id/orders/:order_id/order_items/:id' => 'order_items#shipped', as: :shipped
   post 'orders/:id' => 'orders#cancel', as: :cancel_order
 
-  resources :categories, except: [:new]
+  resources :categories, except: [:new, :update]
   resources :users do
     resources :orders, only: [:index, :show] do
       resources :order_items

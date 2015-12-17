@@ -57,10 +57,12 @@
                 <td><%= dollar_price(order_item.quantity * order_item.product.price) %></td>
                 <td><%= order_item.shipped ? "Shipped" : "Not Shipped" %></td>
                 <td>
-                  <% if !order_item.shipped %>
-                    <%= button_to "Mark as Shipped", shipped_path(@user.id, order.id, order_item.id), class:"btn   btn-default" %>
-                  <% else %>
-                    <%= button_to "Cancel Shipping", shipped_path(@user.id, order.id, order_item.id), class:"btn   btn-default" %>
+                  <% if order.status!= "cancelled" %>
+                    <% if !order_item.shipped %>
+                      <%= button_to "Mark as Shipped", shipped_path(@user.id, order.id, order_item.id), class:"btn   btn-default" %>
+                    <% else %>
+                      <%= button_to "Cancel Shipping", shipped_path(@user.id, order.id, order_item.id), class:"btn   btn-default" %>
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
