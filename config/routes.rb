@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :categories, except: [:new, :update]
   resources :users do
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show] do
+      resources :order_items, only: [:show]
+    end
     resources :products, except: [:index, :destroy] do
       resources :reviews, except: [:new]
       member do
