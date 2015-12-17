@@ -22,6 +22,14 @@ class Order < ActiveRecord::Base
     return total
   end
 
+  def self.user_orders_revenue(orders, user)
+    orders_revenue = 0
+    orders.each do |order|
+      orders_revenue += order.total_cost(user)
+    end
+    return orders_revenue
+  end
+
   def self.check_order_shipped(order_item)
     order = Order.find(order_item.order_id)
     if order[:status] != "shipped"
