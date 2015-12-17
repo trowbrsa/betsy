@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :products]
   before_action :require_login, only: [:update, :destroy, :edit]
-  before_action :correct_user, only: [:update, :destroy, :edit]
+  before_action :correct_user, only: [:update, :destroy, :edit, :show]
   before_action :require_logout, only: [:new]
 
   def index
