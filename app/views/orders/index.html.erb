@@ -21,7 +21,10 @@
   <strong>Total Completed Orders:</strong>
 </p>
 <p>
-  <strong>Filter by order status:</strong>
+  <%= form_tag '', :method => :get do %>
+  <%= select_tag "Status", options_for_select(["Paid", "Shipped", "Cancelled"]), prompt: "Select" %>
+  <%= submit_tag 'Filter by Order Status' %>
+  <% end %>
 </p>
 <br>
 <% @orders.each do |order| %>

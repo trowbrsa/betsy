@@ -6,6 +6,9 @@ class OrdersController < ApplicationController
 
   def index
     @orders = @user.orders.uniq.sort
+    if !(params["Status"].nil? || params["Status"] == "") # if the "Status" params is populated
+      @orders = Order.filter_orders(@orders, params["Status"])
+    end
   end
 
   def show
