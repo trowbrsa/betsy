@@ -6,9 +6,17 @@ class Order < ActiveRecord::Base
   validates_length_of :zip, is: 5, allow_nil: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_nil: true
 
-  def total_cost
+  def total_cost(user = nil)
     total = 0
-    self.order_items.each do |oi|
+    order_items = self.order_items
+    if !(user.nil?)
+      order_items_for_total = []
+      order_items.each do |oi|
+        order_items_for_total.push(oi) if oi.product.user == user
+      end
+      order_items = order_items_for_total
+    end
+    order_items.each do |oi|
       total += (oi.product.price * oi.quantity)
     end
     return total

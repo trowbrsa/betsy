@@ -4,21 +4,24 @@
 
 <h3>Revenue</h3>
 <p>
-  <strong>Total Revenue from Paid Orders:</strong>
+  <strong>Total Revenue from Paid Orders (Not Shipped):</strong> <%= dollar_price(@paid_orders_revenue) %>
 </p>
 <p>
-  <strong>Total Revenue from Completed Orders:</strong>
+  <strong>Total Revenue from Completed Orders (Shipped):</strong> <%= dollar_price(@completed_orders_revenue) %>
 </p>
 <p>
-  <strong>Total Revenue: </strong>
+  <strong>Total Revenue:</strong> <%= dollar_price(@total_revenue) %>
 </p>
 
 <h3>Orders</h3>
 <p>
-  <strong>Total Paid Orders:</strong>
+  <strong>Total Paid Orders (Not Shipped):</strong> <%= @paid_orders.count %>
 </p>
 <p>
-  <strong>Total Completed Orders:</strong>
+  <strong>Total Completed Orders (Shipped):</strong> <%= @completed_orders.count %>
+</p>
+<p>
+  <strong>Total Cancelled Orders:</strong> <%= @cancelled_orders.count %>
 </p>
 <p>
   <%= form_tag '', :method => :get do %>

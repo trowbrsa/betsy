@@ -6,6 +6,21 @@ class OrdersController < ApplicationController
 
   def index
     @orders = @user.orders.uniq.sort
+    @total_revenue = 0
+    @orders.each do |order|
+      @total_revenue += order.total_cost(@user) unless order.status == "cancelled"
+    end
+    @paid_orders = Order.filter_orders(@orders, "paid")
+    @paid_orders_revenue = 0
+    @paid_orders.each do |order|
+      @paid_orders_revenue += order.total_cost(@user)
+    end
+    @completed_orders = Order.filter_orders(@orders, "shipped")
+    @completed_orders_revenue = 0
+    @completed_orders.each do |order|
+      @completed_orders_revenue += order.total_cost(@user)
+    end
+    @cancelled_orders = Order.filter_orders(@orders, "cancelled")
     if !(params["Status"].nil? || params["Status"] == "") # if the "Status" params is populated
       @orders = Order.filter_orders(@orders, params["Status"])
     end
