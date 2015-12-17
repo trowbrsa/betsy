@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get "/users/:id/products" => "users#products", as: :user_products
   post '/users/:user_id/orders/:order_id/order_items/:id' => 'order_items#shipped', as: :shipped
+  get "/users/:user_id/order_items" => 'order_items#index', as: :not_shipped_yet
   post 'orders/:id' => 'orders#cancel', as: :cancel_order
 
   resources :categories, except: [:new, :update]

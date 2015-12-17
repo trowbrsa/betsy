@@ -1,10 +1,10 @@
 class OrderItemsController < ApplicationController
   # before_action :set_order_item, only: [:show, :edit, :update, :destroy]
   #
-  # def index
-  #   @user = User.find(params[:user_id])
-  #   @order_items = OrderItem.all
-  # end
+  def index
+    @user = User.find(params[:user_id])
+    @orders = @user.orders
+  end
   #
   # def show
   #   @user = User.find(params[:user_id])
@@ -43,7 +43,7 @@ class OrderItemsController < ApplicationController
       order_item.update(:shipped => false)
       Order.check_order_shipped(order_item)
     end
-    redirect_to user_orders_path(user.id)
+    redirect_to :back
   end
 
   # def update
