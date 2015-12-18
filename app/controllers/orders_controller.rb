@@ -54,16 +54,21 @@ class OrdersController < ApplicationController
     if @order.save
       Product.decrement_stock(products_sold)
       session[:cart] = nil
-      redirect_to confirmation_path(@order)
+      session[:order_id] = @order.id
+      redirect_to confirmation_path
     else
       render :new
     end
   end
 
-
   def confirm
-    @order = Order.find(params[:order_id])
-    @total = @order.total_cost
+    if session[:order_id].nil?
+      flash[:error] = "This page has expired."
+      redirect_to root_path
+    else
+      @order = Order.find(session[:order_id])
+      @total = @order.total_cost
+    end
   end
 
   private
