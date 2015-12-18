@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   end
 
   def products
-    @products = @user.products.paginate(page: params[:page], per_page: 12).order(active: :desc)
+    if logged_in? && current_user == @user
+      @products = @user.products.paginate(page: params[:page], per_page: 12).order(active: :desc)
+    else
+      @products = @user.products.paginate(page: params[:page], per_page: 12).where(active: true)
+    end
   end
 
   def edit

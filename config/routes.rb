@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   delete 'logout/' => 'sessions#destroy', as: :logout
   get 'checkout/' => 'orders#new', as: :checkout_new
   post 'checkout/' => 'orders#create', as: :checkout_submit
-  get 'checkout/:order_id' => 'orders#confirm', as: :confirmation
+  get 'confirmation/' => 'orders#confirm'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

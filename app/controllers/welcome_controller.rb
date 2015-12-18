@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
   def index
-    @products = Product.limit(12)
+    @products = Product.where(active: true).limit(12)
   end
 end
