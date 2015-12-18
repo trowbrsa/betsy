@@ -2,11 +2,11 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update]
   before_action :find_user, only: [:new, :edit, :create, :update]
   before_action :all_categories, only: [:new, :edit, :create, :update]
-  before_action :require_login, only: [:new, :edit, :create, :update]
-  before_action :correct_user, only: [:new, :edit, :create, :update]
+  before_action :require_login, only: [:new, :edit, :create, :update, :retire]
+  before_action :correct_user, only: [:new, :edit, :create, :update, :retire]
 
   def index
-    @products = Product.all.paginate(page: params[:page], per_page: 12)
+    @products = Product.all.paginate(page: params[:page], per_page: 12).where(active: true)
   end
 
   def show
@@ -49,6 +49,16 @@ class ProductsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def retire
+    product = Product.find(params[:id])
+    if product.active
+      product.update(:active => false)
+    else
+      product.update(:active => true)
+    end
+    redirect_to user_products_path(product.user)
   end
 
   private

@@ -12,11 +12,13 @@ Rails.application.routes.draw do
       resources :order_items, only: [:show]
     end
     resources :products, except: [:index, :destroy] do
+
       resources :reviews, except: [:new]
       member do
         post 'cart/' => 'carts#add', as: :add_to_cart
         patch 'cart/' => 'carts#update'
         delete 'cart/' => 'carts#destroy', as: :remove
+        post '/' => 'products#retire', as: :retire
       end
     end
   end

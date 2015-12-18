@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def products
-    @products = @user.products.paginate(page: params[:page], per_page: 12)
+    @products = @user.products.paginate(page: params[:page], per_page: 12).order(active: :desc)
   end
 
   def edit

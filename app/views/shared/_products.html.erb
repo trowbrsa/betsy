@@ -22,6 +22,13 @@
                 <p class = "pull-left">
                   <%= link_to "Edit item", edit_user_product_path(product.user.id, product.id) %>
                 </p>
+                <p class = "pull-right">
+                  <% if product.active %>
+                    <%= link_to "Retire item", retire_user_product_path(product.user.id, product.id), method: :post %>
+                  <% else %>
+                    <%= link_to "Activate item", retire_user_product_path(product.user.id, product.id), method: :post %>
+                  <% end %>
+                </p>
             </div>
         </div>
       </div>

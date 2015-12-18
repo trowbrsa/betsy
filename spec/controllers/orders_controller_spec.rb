@@ -18,7 +18,6 @@ RSpec.describe OrdersController, type: :controller do
     }
   }
 
-
   describe "GET 'index'" do
     it "is successful" do
       session[:user_id] = product.user.id
