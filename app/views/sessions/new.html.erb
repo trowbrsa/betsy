@@ -1,4 +1,4 @@
-<%= form_for(:session_data, url: login_path, :html => {:class => "form-signin"}) do |f| %>
+<%= form_for(:session_data, url: login_path, :html => {:class => "form-signin box-with-shadow"}) do |f| %>
 <% if !flash.now[:danger].nil? %>
   <p class="alert alert-danger"><%= flash.now[:danger] %></p>
 <% end %>
