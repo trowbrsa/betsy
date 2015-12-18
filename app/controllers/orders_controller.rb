@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :find_user, except: [:new, :create, :confirm, :cancel]
 
   def index
-    orders = @user.orders.includes(:order_items)
+    orders = @user.orders
     @orders = orders.uniq.sort
     @paid_orders = Order.filter_orders(@orders, "paid")
     @completed_orders = Order.filter_orders(@orders, "shipped")
