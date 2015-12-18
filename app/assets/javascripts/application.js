@@ -19,10 +19,25 @@
 var resize_thumbs = function(){
   var thumb = document.getElementsByClassName('thumbnail')[0];
   var width = thumb.clientWidth;
-  console.log(width);
   $('.img-container').css({ "height": width+"px" });
 };
 
 $(document).ready(resize_thumbs);
 $(window).resize(resize_thumbs);
 $(document).on('page:change', resize_thumbs);
+
+/**
+ * Listen to scroll to change header opacity class
+ */
+function checkScroll(){
+    var startY = $('.navbar').height(); //The point where the navbar changes in px
+    if($(window).scrollTop() > startY){
+      $('.navbar').addClass("scrolled");
+    }else{
+      $('.navbar').removeClass("scrolled");
+    }
+}
+
+$(window).on("scroll load resize", function(){
+  checkScroll();
+  });
