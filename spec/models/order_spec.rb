@@ -9,11 +9,10 @@ RSpec.describe Order, type: :model do
   let (:user_2) { User.create(email: 'nemo1@foo.com', name: "Bob1", username: "bobi1", password: "333", password_confirmation: "333") }
   let (:product_1) { Product.create(name: "Sample", price: 10, stock: 5, user_id: user_1.id) }
   let (:product_2) { Product.create(name: "Sample1", price: 15, stock: 5, user_id: user_2.id) }
-  let (:order_item_1) { OrderItem.create(product_id: product_1.id, quantity: 3) }
-  let (:order_item_2) { OrderItem.create(product_id: product_2.id, quantity: 2) }
-  let (:order_1) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_1])) }
-  let (:order_2) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_2])) }
-  let (:orders) { [order_1, order_2] }
+  let (:order_item_1) { OrderItem.create(product_id: product_1.id, quantity: 3, shipped: false) }
+  let (:order_item_2) { OrderItem.create(product_id: product_2.id, quantity: 2, shipped: true) }
+  let (:order_1) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_1], status: "paid")) }
+  let (:order_2) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_2], status: "complete")) }
 
   describe ".validates" do
     it { is_expected.to validate_length_of(:zip) }
@@ -50,18 +49,18 @@ RSpec.describe Order, type: :model do
   end
 
   describe ".user_orders_revenue" do
+
     it "calculates a user's revenue from a collection of orders" do
+      orders = [order_1, order_2]
       expect(Order.user_orders_revenue(orders, user_1)).to eq(30)
     end
   end
 
-  describe ".check_order_shipped" do
-    it "updates the order status to 'shipped' if all order items have shipped" do
-
-    end
-
-    it "changes the order status back to 'paid' if an order item's shipment is cancelled" do
-
+  describe '.filter_orders' do
+    it "returns orders with a status matching the status parameter" do
+      orders = [order_1, order_2]
+      expect(Order.filter_orders(orders, "paid").length).to eq 1
+      expect(Order.filter_orders(orders, "paid")[0].id).to eq order_1.id
     end
   end
 end
