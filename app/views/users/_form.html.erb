@@ -31,7 +31,8 @@
     <%= f.password_field :password_confirmation, class: 'form-control', :required => true %>
   </div>
   <br>
-  <div class="actions">
+  <div class="actions bottom-margin text-center">
     <%= f.submit value: "#{submit_text}", class: "btn btn-primary" %>
+    <%= link_to 'Cancel', @user, class: "btn btn-primary" %>
   </div>
 <% end %>
