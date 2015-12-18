@@ -21,15 +21,20 @@
       <h4><%= dollar_price(@product.price) %></h4>
       <p><%= @product.description %></p>
       <p class="num_available"><%= @product.stock %> Available</p>
-      <%= form_tag({controller: "carts", action: "add"}, method: :post ) do %>
-      <div class="row">
-        <div class="col-xs-2">
-          <%= number_field(:product, :add_quantity, in: 1..@product.stock, step: 1, value: 1, class: "big-input") %>
+      <% if @product.active %>
+        <%= form_tag({controller: "carts", action: "add"}, method: :post ) do %>
+        <div class="row">
+          <div class="col-xs-2">
+            <%= number_field(:product, :add_quantity, in: 1..@product.stock, step: 1, value: 1, class: "big-input") %>
+          </div>
+          <div class="col-xs-10">
+            <%= submit_tag "Add to Cart", class: "btn btn-lg btn-success btn-block" %>
+          </div>
         </div>
-        <div class="col-xs-10">
-          <%= submit_tag "Add to Cart", class: "btn btn-lg btn-success btn-block" %>
-        </div>
-      </div>
+        <% end %>
+      <% else %>
+        <br>
+        <strong>This Product is Retired.</strong>
       <% end %>
 
       <% if !flash[:error].nil? %>
