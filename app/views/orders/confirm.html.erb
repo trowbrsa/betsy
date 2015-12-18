@@ -25,7 +25,7 @@
 </p>
 <p>
   <strong>Purchased:</strong>
-  <%= readable_date(@order.created_at) %> at <%= readable_time(@order.created_at) %>
+  <%= readable_date(@order.created_at.in_time_zone("Pacific Time (US & Canada)")) %> at <%= readable_time(@order.created_at.in_time_zone("Pacific Time (US & Canada)")) %>
 </p>
 <p>
   <strong>Status:</strong>
