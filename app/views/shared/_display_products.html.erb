@@ -1,5 +1,5 @@
 <% if @products.respond_to?(:total_pages) %>
-  <%= will_paginate @products %>
+  <div class="row text-center"><%= will_paginate @products %></div>
 <% end %>
 <% @products.to_ary.in_groups_of(4, false) do |group| %>
   <div class="row">
@@ -39,5 +39,5 @@
   </div>
 <% end %>
 <% if @products.respond_to?(:total_pages) %>
-  <%= will_paginate @products %>
+  <div class="row text-center"><%= will_paginate @products %></div>
 <% end %>
