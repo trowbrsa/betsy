@@ -1,4 +1,4 @@
-<%= will_paginate @products %>
+<div class="row text-center"><%= will_paginate @products %></div>
 <% @products.to_ary.in_groups_of(4, false) do |group| %>
   <div class="row">
     <% group.each do |product| %>
@@ -35,4 +35,4 @@
   </div>
 <% end %>
 
-<%= will_paginate @products %>
+<div class="row text-center"><%= will_paginate @products %></div>
