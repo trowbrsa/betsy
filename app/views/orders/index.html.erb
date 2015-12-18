@@ -34,6 +34,7 @@
 <% group.each do |order| %>
 <!-- begin order -->
 <div class="col-md-6">
+  <div class="order-table">
 <!-- begin order display section -->
   <h4>Order <%= link_to "##{order.id}", user_order_path(@user.id, order.id) %></h4>
   <p>
@@ -77,6 +78,7 @@
       <% end %>
       </tbody>
     </table>
+  </div>
 <!-- end order display section  -->
 </div>
 <!-- end order -->
