@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   def new
     not_enough_stock = false
     @order_items.each do |oi|
-      not_enough_stock = true if oi.product.stock < oi.quantity
+      not_enough_stock = true if Product.find(oi.product_id).stock < oi.quantity
     end
     if not_enough_stock
       flash[:error] = "There is not enough stock to complete your purchase. Please update your cart."
@@ -34,7 +34,6 @@ class OrdersController < ApplicationController
       @order = Order.new
     end
   end
-
 
   def cancel
     order = Order.find(params[:id])
