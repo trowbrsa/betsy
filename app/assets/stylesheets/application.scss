@@ -39,6 +39,24 @@ h1 {
                0px 18px 23px rgba(0,0,0,0.1);
 }
 
+.jumbotron:hover {
+  -webkit-filter: brightness(90%);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.jumbotron {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+
 body {
   font-family: $body-font;
     background: image-url("concrete_seamless.png");
