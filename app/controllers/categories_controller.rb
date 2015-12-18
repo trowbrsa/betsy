@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
 
 
   def show
-    @products = @category.products.paginate(page: params[:page], per_page: 12)
+    @products = @category.products.paginate(page: params[:page], per_page: 12).where(active: true)
   end
 
   def edit
