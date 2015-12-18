@@ -53,7 +53,7 @@ RSpec.describe OrdersController, type: :controller do
       session[:cart] = { product.id => 2 }
       session[:user_id] = product.user.id
       post :create, good_params
-      expect(subject).to redirect_to confirmation_path(Order.all.last)
+      expect(subject).to redirect_to confirmation_path
     end
 
     it "renders new template on error" do
@@ -64,9 +64,15 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET 'confirm'" do
-    it "is successful" do
-      get :confirm, order_id: order.id
+    it "is successful with an order_id in the session" do
+      session[:order_id] = order.id
+      get :confirm
       expect(response.status).to eq 200
+    end
+
+    it "redirects to home page if no order_id is in the session" do
+      get :confirm
+      expect(subject).to redirect_to root_path
     end
   end
 
