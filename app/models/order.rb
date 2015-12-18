@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
 
   def total_cost(user = nil)
     total = 0
-    order_items = self.order_items
+    order_items = self.order_items.includes(product: [:user])
     if !(user.nil?)
       order_items_for_total = []
       order_items.each do |oi|
