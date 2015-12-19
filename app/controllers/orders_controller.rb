@@ -35,14 +35,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def cancel
-    order = Order.find(params[:id])
-    order.update(:status => "cancelled")
-    Product.increment_stock(order)
-    flash[:error] = "Your order has been cancelled"
-    redirect_to root_path
-  end
-
   def create
     @order = Order.new(order_params)
     products_sold = []
@@ -69,6 +61,14 @@ class OrdersController < ApplicationController
       @order = Order.find(session[:order_id])
       @total = @order.total_cost
     end
+  end
+
+  def cancel
+    order = Order.find(params[:id])
+    order.update(:status => "cancelled")
+    Product.increment_stock(order)
+    flash[:error] = "Your order has been cancelled"
+    redirect_to root_path
   end
 
   private

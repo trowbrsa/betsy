@@ -34,7 +34,7 @@ class OrderItemsController < ApplicationController
   # end
 
   def shipped
-    user = User.find(params[:user_id])
+    # user = User.find(params[:user_id])
     order_item = OrderItem.find(params[:id])
     if !order_item.shipped
       order_item.update(:shipped => true)
