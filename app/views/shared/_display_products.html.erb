@@ -10,9 +10,9 @@
           <%= image_tag product.photo_url, alt: "product photo" %>
           </div>
             <div class="caption">
-                <h5 class="pull-right"><%= dollar_price(product.price) %></h4>
+                <h5 class="pull-right"><%= dollar_price(product.price) %></h5>
                 <h5><%= link_to product.name, user_product_path(product.user_id, product.id) %>
-                </h4>
+                </h5>
                 <p class="description">
                   <% if !product.description.nil? %>
                     <%= product.description %>
