@@ -25,15 +25,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-# Removing this functionality. Maybe add it back in for admin user
-  # def update
-  #   if @category.update(category_params)
-  #     redirect_to categories_path
-  #   else
-  #     render :edit
-  #   end
-  # end
-
   private
 
   def find_category
