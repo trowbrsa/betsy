@@ -4,6 +4,13 @@
 # Accessing the website
 You can view the website live at [Wetsy](https://wetsy.herokuapp.com/)
 
+# Setting up
+To set up the project:
+1. Clone the project from github
+2. Run bundle install
+3. Run rake db:seed to seed the database
+4. Run rails server and open the website on your localhost in the browser
+
 # Applying New Concepts
 We did a few new things in this project:
 - model relationships: has_many, through and has_and_belongs_to_many
