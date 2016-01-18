@@ -6,13 +6,8 @@ class OrderItemsController < ApplicationController
 
   def shipped
     order_item = OrderItem.find(params[:id])
-    if !order_item.shipped
-      order_item.update(:shipped => true)
-      Order.check_order_shipped(order_item)
-    else
-      order_item.update(:shipped => false)
-      Order.check_order_shipped(order_item)
-    end
+    order_item.update(:shipped => !order_item.shipped)
+    Order.check_order_shipped(order_item)
     redirect_to :back
   end
 end
