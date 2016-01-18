@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     @paid_orders_revenue = Order.user_orders_revenue(@paid_orders, @user)
     @completed_orders_revenue = Order.user_orders_revenue(@completed_orders, @user)
     @total_revenue = @paid_orders_revenue + @completed_orders_revenue
-    if !(params["Status"].nil? || params["Status"] == "")
+    if params["Status"].present?
       @orders = Order.filter_orders(@orders, params["Status"])
     end
   end
