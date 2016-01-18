@@ -20,6 +20,7 @@ class CategoriesController < ApplicationController
       redirect_to categories_path
     else
       @categories = Category.all
+      flash[:error] = "Error creating category."
       render :index
     end
   end
