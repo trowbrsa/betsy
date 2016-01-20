@@ -23,6 +23,21 @@
     <%= f.label :stock %>
     <%= f.number_field :stock, class: 'form-control', :required => true, :min => 0 %>
 
+    <%= f.label :weight, "Weight in grams" %>
+    <%= f.number_field :weight, class: 'form-control', :required => true, :min => 0 %>
+
+    <%= f.label :diameter, "Diameter in centimeters" %>
+    <%= f.number_field :diameter, class: 'form-control', :required => false, :min => 0 %>
+
+    <%= f.label :width, "Width in centimeters" %>
+    <%= f.number_field :stock, class: 'form-control', :required => false, :min => 0 %>
+
+    <%= f.label :height, "Height in centimeters" %>
+    <%= f.number_field :stock, class: 'form-control', :required => false, :min => 0 %>
+
+    <%= f.label :length, "Length in centimeters" %>
+    <%= f.number_field :stock, class: 'form-control', :required => false, :min => 0 %>
+
     <%= f.label :description %>
     <%= f.text_field :description, class: 'form-control' %>
 
