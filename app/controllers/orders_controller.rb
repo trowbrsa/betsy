@@ -63,6 +63,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  def calculateshipping
+    results = HTTParty.get("http://wetsy-ship.herokuapp.com/ship?destination%5Bcity%5D=Seattle&destination%5Bcountry%5D=US&destination%5Bstate%5D=WA&destination%5Bzip%5D=98103&origin%5Bcity%5D=Beverly+Hills&origin%5Bcountry%5D=US&origin%5Bstate%5D=CA&origin%5Bzip%5D=90210&packages%5B%5D%5Bheight%5D=50&packages%5B%5D%5Blength%5D=20&packages%5B%5D%5Bweight%5D=100&packages%5B%5D%5Bwidth%5D=30"
+    # headers: {"Authorization" => "bearer #{carrier_access_token}", 'Accept' => 'application/json' }, format: :json).parsed_response
+
+  end
+
   def cancel
     order = Order.find(params[:id])
     order.update(:status => "cancelled")
