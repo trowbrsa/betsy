@@ -5,10 +5,10 @@ RSpec.describe Order, type: :model do
     {street: "test" , city: "Seattle", state: "WA", zip: "98116", cc_num: "12345678", cc_cvv: "123", cc_name: "Kelly", cc_exp: "20151215"}
   }
 
-  let (:user_1) { User.create(email: 'nemo@foo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333") }
-  let (:user_2) { User.create(email: 'nemo1@foo.com', name: "Bob1", username: "bobi1", password: "333", password_confirmation: "333") }
-  let (:product_1) { Product.create(name: "Sample", price: 10, stock: 5, user_id: user_1.id) }
-  let (:product_2) { Product.create(name: "Sample1", price: 15, stock: 5, user_id: user_2.id) }
+  let (:user_1) { User.create(email: 'nemo@foo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443) }
+  let (:user_2) { User.create(email: 'nemo1@foo.com', name: "Bob1", username: "bobi1", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443) }
+  let (:product_1) { Product.create(name: "Sample", price: 10, stock: 5, user_id: user_1.id, weight: 30) }
+  let (:product_2) { Product.create(name: "Sample1", price: 15, stock: 5, user_id: user_2.id, weight: 20) }
   let (:order_item_1) { OrderItem.create(product_id: product_1.id, quantity: 3, shipped: false) }
   let (:order_item_2) { OrderItem.create(product_id: product_2.id, quantity: 2, shipped: true) }
   let (:order_1) { Order.create(good_params.merge(email: "email1@email.com", order_items: [order_item_1], status: "paid")) }

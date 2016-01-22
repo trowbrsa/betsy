@@ -7,23 +7,27 @@ RSpec.describe User, type: :model do
 
   describe ".validates" do
     it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:city) }
+    it { is_expected.to validate_presence_of(:state) }
+    it { is_expected.to validate_presence_of(:zip) }
+    it { is_expected.to validate_presence_of(:country)}
 
     it "must have a unique email" do
-      expect(User.new(name: "Nemo", username: "Nemo1", email: user.email, password: "123", password_confirmation: "123")).to_not be_valid
+      expect(User.new(name: "Nemo", username: "Nemo1", email: user.email, password: "123", password_confirmation: "123", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
     end
 
     it "downcases email before checking validity" do
-      expect(User.new(name: "Nemo", username: "Nemo1", email: user.email.upcase, password: "123", password_confirmation: "123")).to_not be_valid
+      expect(User.new(name: "Nemo", username: "Nemo1", email: user.email.upcase, password: "123", password_confirmation: "123", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
     end
 
     it "must have a valid email" do
-      expect(User.new(email: 'nemo@foo,com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: 'nemo_at_foo.org', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: 'nemo.user@foo.', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: 'nemo@bar_baz.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: 'nemo@bar+baz.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: ' ', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to_not be_valid
-      expect(User.new(email: 'nemo@nemo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333")).to be_valid
+      expect(User.new(email: 'nemo@foo,com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: 'nemo_at_foo.org', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: 'nemo.user@foo.', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: 'nemo@bar_baz.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: 'nemo@bar+baz.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: ' ', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to_not be_valid
+      expect(User.new(email: 'nemo@nemo.com', name: "Bob", username: "bobi", password: "333", password_confirmation: "333", country: "US", state: "WA", city: "Seattle", zip: 12443)).to be_valid
     end
 
   end
@@ -33,7 +37,7 @@ RSpec.describe User, type: :model do
       expect(User.new().average_rating).to eq 0
     end
     it "returns 0 if there are no ratings" do
-      new_user = FactoryGirl.create(:user, username: "new_user", email: "new_user@example.com")
+      new_user = FactoryGirl.create(:user, username: "new_user", email: "new_user@example.com", country: "US", state: "WA", city: "Seattle", zip: 12443)
       new_user.products << Product.create(name:"new product", price: 500, stock: 10)
       expect(new_user.average_rating).to eq 0
     end

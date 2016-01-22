@@ -1,11 +1,11 @@
-username,email,password,password_confirmation,name
-user1,user1@example.com,password,password,User One
-user2,user2@example.com,password,password,User Two
-user3,user3@example.com,password,password,User Three
-user4,user4@example.com,password,password,User Four
-user5,user5@example.com,password,password,User Five
-user6,user6@example.com,password,password,User Six
-user7,user7@example.com,password,password,User Seven
-user8,user8@example.com,password,password,User Eight
-user9,user9@example.com,password,password,User Nine
-user10,user10@example.com,password,password,User Ten
+username,email,password,password_confirmation,name,country,state,city,zip
+user1,user1@example.com,password,password,User One,US,WA,Seattle,98103
+user2,user2@example.com,password,password,User Two,US,FL,Tallahassee,32312
+user3,user3@example.com,password,password,User Three,US,TX,Austin,78751
+user4,user4@example.com,password,password,User Four,US,CO,Greeley,80631
+user5,user5@example.com,password,password,User Five,US,PA,Pittsburgh,15241
+user6,user6@example.com,password,password,User Six,US,WA,Greenbank,98253
+user7,user7@example.com,password,password,User Seven,US,WA,Greenbank,98253
+user8,user8@example.com,password,password,User Eight,US,WA,Greenbank,98253
+user9,user9@example.com,password,password,User Nine,US,WA,Greenbank,98253
+user10,user10@example.com,password,password,User Ten,US,WA,Greenbank,98253

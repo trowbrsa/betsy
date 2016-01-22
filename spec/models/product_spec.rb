@@ -7,6 +7,7 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:price) }
     it { is_expected.to validate_presence_of(:user_id) }
+    it { is_expected.to validate_presence_of(:weight) }
 
     it "must have a unique name" do
       expect(Product.new(name: sample_product.name, price: 10, stock: 5)).to_not be_valid

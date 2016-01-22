@@ -4,12 +4,20 @@ FactoryGirl.define do
     email { "#{username}@example.com" }
     password "foobar"
     password_confirmation "foobar"
+    country "US"
+    state "WA"
+    city "Seattle"
+    zip 98103
   end
 
   factory :product do
     name "Water bottle"
     price 500
     stock 10
+    weight 30
+    width 12
+    height 10
+    length 3
     association :user
   end
 
