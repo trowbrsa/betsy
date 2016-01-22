@@ -31,9 +31,9 @@ Rails.application.routes.draw do
   post 'login/' => 'sessions#create'
   delete 'logout/' => 'sessions#destroy', as: :logout
   get 'addshipmentdetails/' => 'orders#new', as: :addshipmentdetails
-  # post 'shippinginfo/' => 'orders#create' as: :checkout_submit
-  get 'checkout/' => 'orders#checkout', as: :checkout
-  post 'checkout/' => 'orders#create', as: :checkout_submit
+  # get 'checkout/' => 'orders#checkout', as: :checkout
+  post 'checkout/' => 'orders#checkout', as: :checkout
+  # post 'purchase' => 'orders#create'
   get 'confirmation/' => 'orders#confirm'
 
   # The priority is based upon order of creation: first created -> highest priority.

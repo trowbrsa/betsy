@@ -88,7 +88,6 @@ class OrdersController < ApplicationController
   #   # headers: {"Authorization" => "bearer #{carrier_access_token}", 'Accept' => 'application/json' }, format: :json).parsed_response
   #   #{city}
   #   #host name as a parameter depending on whether you're working locally our
-  render :create
   end
 
   def cancel
