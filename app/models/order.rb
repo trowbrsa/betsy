@@ -15,11 +15,20 @@ class Order < ActiveRecord::Base
       end
       order_items = order_items_for_total
     end
-    order_items.each do |oi|
-      total += (oi.product.price * oi.quantity)
-    end
+    if params[:shipping_choice].nil?
+      order_items.each do |oi|
+        total += (oi.product.price * oi.quantity)
+      end
     return total
-  end
+    else
+      order_items.each do |oi|
+        total += (oi.product.price * oi.quantity)
+        total = total + params[:shipping_choice]
+    end
+      return total
+    end
+  end 
+
 
   def self.user_orders_revenue(orders, user)
     orders_revenue = 0
