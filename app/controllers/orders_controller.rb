@@ -38,12 +38,12 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    # products_sold = []
-    # @order_items.each do |oi|
-    #   @order.order_items << oi
-    #   products_sold.push([oi.product, oi.quantity])
-    #   oi.save
-    # end
+    products_sold = []
+    @order_items.each do |oi|
+      @order.order_items << oi
+      products_sold.push([oi.product, oi.quantity])
+      oi.save
+    end
     if @order.save
       Product.decrement_stock(products_sold)
       session[:cart] = nil
@@ -67,15 +67,6 @@ class OrdersController < ApplicationController
   def checkout
     @order = Order.new
     order_items
-    
-    # products_sold = []
-    # @order_items.each do |oi|
-    #   @order.order_items << oi
-    #   products_sold.push([oi.product, oi.quantity])
-    #   oi.save
-    # end
-  end
-
 
   # def shipping_estimate(params)
   #   customer_city = params[:city]
@@ -97,7 +88,8 @@ class OrdersController < ApplicationController
   #   # headers: {"Authorization" => "bearer #{carrier_access_token}", 'Accept' => 'application/json' }, format: :json).parsed_response
   #   #{city}
   #   #host name as a parameter depending on whether you're working locally our
-  # end
+  render :create
+  end
 
   def cancel
     order = Order.find(params[:id])
