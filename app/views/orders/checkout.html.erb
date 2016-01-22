@@ -65,7 +65,8 @@
       <tr>
         <td><%= @results[0][0] %></td>
         <td><%= number_to_currency(@results[0][1]) %></td>
-        <td>Select</td>
+        <td><%= radio_button_tag(:shipping_choice, "UPS_1") %>
+</td>
       </tr>
       <tr>
         <td><%= @results[1][0] %></td>
