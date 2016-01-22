@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   before_action :correct_user, only: [:index]
   before_action :order_items, only: [:new, :create]
   before_action :find_user, except: [:new, :addshippinginfo, :checkout, :create, :confirm, :cancel]
+  BASE_URL = "https://sea-merchant.herokuapp.com/ship?"
+
 
   def index
     orders = @user.orders
@@ -65,41 +67,51 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-
+    # should put some/most of this code in the model, I know :(
     @order = Order.new
-    order_items
 
     destination = {
-    city: params[:order][:city],
-    state: params[:order][:state],
-    zip: params[:order][:zip],
-    country: "US"
+      city:     params[:order][:city],
+      state:    params[:order][:state].upcase,
+      zip:      params[:order][:zip],
+      country:  "US"
     }
 
-    products = order_items.keys
+    packages_by_merchant = {}
+    order_items.each do |product_id, quantity|
+      product = Product.find(product_id)
+      merchant_id = User.find(product.user_id).id
+      if packages_by_merchant[merchant_id].nil?
+        packages_by_merchant[merchant_id] = []
+      end
+      quantity.times do
+        packages_by_merchant[merchant_id].push(
+          {
+            weight: product.weight,
+            length: product.length,
+            height: product.height,
+            width:  product.width
+          }
+        )
+      end
+    end
 
-
-    origin = {
-    city: Product.find(products[0]).user.city,
-    state: Product.find(products[0]).user.state,
-    zip: Product.find(products[0]).user.zip,
-    country: "US"
-    }
-
-    packages = [
-      {
-        weight: Product.find(products[0]).weight,
-        length: Product.find(products[0]).length,
-        height: Product.find(products[0]).height,
-        width:  Product.find(products[0]).width
+    api_responses = []
+    packages_by_merchant.each do |merchant_id, packages|
+      merchant = User.find(merchant_id)
+      origin = {
+        city:     merchant.city,
+        state:    merchant.state,
+        zip:      merchant.zip,
+        country:  "US"
       }
-    ]
 
-    api_information = {origin: origin, destination: destination, packages: packages}
-
-    query = api_information.to_query
-
-    @results = HTTParty.get("https://sea-merchant.herokuapp.com/ship?#{query}")
+      api_params = {origin: origin, destination: destination, packages: packages}
+      query = api_params.to_query
+      results = HTTParty.get("#{BASE_URL + query}")
+      api_responses.push(results)
+    end
+    @results = api_responses
   end
 
   def cancel
