@@ -77,15 +77,18 @@ class OrdersController < ApplicationController
       country:  "US"
     }
 
-    packages_by_merchant = {}
+    origin = {
+      city:     "Austin",
+      state:    "TX",
+      zip:      "78751",
+      country:  "US"
+    }
+
+    packages = []
     order_items.each do |product_id, quantity|
       product = Product.find(product_id)
-      merchant_id = User.find(product.user_id).id
-      if packages_by_merchant[merchant_id].nil?
-        packages_by_merchant[merchant_id] = []
-      end
       quantity.times do
-        packages_by_merchant[merchant_id].push(
+        packages.push(
           {
             weight: product.weight,
             length: product.length,
@@ -96,21 +99,9 @@ class OrdersController < ApplicationController
       end
     end
 
-    api_responses = []
-    packages_by_merchant.each do |merchant_id, packages|
-      merchant = User.find(merchant_id)
-      origin = {
-        city:     merchant.city,
-        state:    merchant.state,
-        zip:      merchant.zip,
-        country:  "US"
-      }
-      api_params = {origin: origin, destination: destination, packages: packages}
-      query = api_params.to_query
-      results = HTTParty.get("#{BASE_URL + query}")
-      api_responses.push(results)
-    end
-    @results = api_responses
+    api_params = {origin: origin, destination: destination, packages: packages}
+    query = api_params.to_query
+    @results = HTTParty.get("#{BASE_URL + query}")
   end
 
   def cancel
