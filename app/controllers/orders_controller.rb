@@ -99,7 +99,7 @@ class OrdersController < ApplicationController
 
     query = api_information.to_query
 
-    @results = HTTParty.get("http://localhost:3001/ship?#{query}")
+    @results = HTTParty.get("https://sea-merchant.herokuapp.com/ship?#{query}")
   end
 
   def cancel

@@ -6,19 +6,23 @@ class Order < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_nil: true
 
   def total_cost(user = nil)
-    total = 0
-    order_items = self.order_items.includes(product: [:user])
-    if !(user.nil?)
-      order_items_for_total = []
-      order_items.each do |oi|
-        order_items_for_total.push(oi) if oi.product.user == user
+      total = 0
+      order_items = self.order_items.includes(product: [:user])
+      if !(user.nil?)
+        order_items_for_total = []
+        order_items.each do |oi|
+          order_items_for_total.push(oi) if oi.product.user == user
+        end
+        order_items = order_items_for_total
       end
-      order_items = order_items_for_total
-    end
-    order_items.each do |oi|
-      total += (oi.product.price * oi.quantity)
-    end
-    return total
+      order_items.each do |oi|
+        total += (oi.product.price * oi.quantity)
+      end
+      return total
+  end
+
+  def total_cost_with_shipping
+    # total cost += params[:shipping_choice]
   end
 
   def self.user_orders_revenue(orders, user)
