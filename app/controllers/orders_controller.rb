@@ -100,9 +100,7 @@ class OrdersController < ApplicationController
     query = api_information.to_query
 
     results = HTTParty.get("http://localhost:3001/ship?#{query}")
-
     raise
-
   end
 
   def cancel

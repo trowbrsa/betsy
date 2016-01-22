@@ -55,7 +55,33 @@
     <% end %>
   </div>
   <div class="col-xs-12 col-sm-5 col-sm-offset-1 box-with-shadow">
-    <h3>Purchase Summary With Shipping Information</h3>
+    <h3>Shipping Options</h3>
+    <table class="table table-hover">
+      <thead>
+        <th>Product</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-right">Subtotal</th>
+      </thead>
+      <% total = 0 %>
+      <% @order_items.each do |oi| %>
+      <tr>
+        <td><%= oi.product.name %></td>
+        <td class="text-center"><%= oi.quantity %></td>
+        <% subtotal = oi.product.price * oi.quantity %>
+        <% total += subtotal %>
+        <td class="text-right"><%= dollar_price(subtotal) %></td>
+      </tr>
+      <% end %>
+      <tfoot>
+        <td></td>
+        <td class="text-right"><strong>Total: </strong></td>
+        <td class="text-right"><%= dollar_price(total) %></td>
+      </tfoot>
+    </table>
+  </div>
+</div>
+  <div class="col-xs-12 col-sm-5 col-sm-offset-1 box-with-shadow">
+    <h3>Purchase Summary</h3>
     <table class="table table-hover">
       <thead>
         <th>Product</th>
