@@ -18,7 +18,7 @@ RSpec.describe ProductsController, type: :controller do
   }
 
   let (:good_params) {
-    { user_id: product.user.id, categories: [sample_category_1.id, sample_category_2.id], product: { name: "Loofah",  price: "600", stock: "2", photo_url: "hi.jpg" } }
+    { user_id: product.user.id, categories: [sample_category_1.id, sample_category_2.id], product: { name: "Loofah",  price: "600", stock: "2", photo_url: "hi.jpg", weight: 30, width: 10, height: 10, length: 3 } }
   }
 
   describe "GET 'index'" do

@@ -30,8 +30,9 @@ Rails.application.routes.draw do
   get 'login/' => 'sessions#new', as: :login
   post 'login/' => 'sessions#create'
   delete 'logout/' => 'sessions#destroy', as: :logout
-  get 'calculateshipping' => 'orders#calculateshipping', as: :calculate_shipping
-  get 'checkout/' => 'orders#new', as: :checkout_new
+  get 'addshipmentdetails/' => 'orders#new', as: :addshipmentdetails
+  # post 'shippinginfo/' => 'orders#create' as: :checkout_submit
+  get 'checkout/' => 'orders#checkout', as: :checkout
   post 'checkout/' => 'orders#create', as: :checkout_submit
   get 'confirmation/' => 'orders#confirm'
 

@@ -28,9 +28,14 @@ tables.each do |k, v|
     elsif k == "Category"
       Category.create(info)
     elsif k == "Product"
-      p = Product.create(info)
+      p = Product.new(info)
+      p.length = rand(1..50)
+      p.width = rand(1..50)
+      p.height = rand(2..50)
+      p.weight = rand(1..100)
       a = Array.new(rand(1..5)){ |i| i = rand(1..10) }
       p.categories << Category.find(a.uniq)
+      p.save
     elsif k == "User"
       User.create(info)
     elsif k == "Review"
