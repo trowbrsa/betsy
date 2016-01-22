@@ -58,25 +58,75 @@
     <h3>Shipping Options</h3>
     <table class="table table-hover">
       <thead>
-        <th>Product</th>
-        <th class="text-center">Quantity</th>
-        <th class="text-right">Subtotal</th>
+        <th class="text-left">Method</th>
+        <th class="text-middle">Cost</th>
+        <th class="text-right">Select</th>
       </thead>
-      <% total = 0 %>
-      <% @order_items.each do |oi| %>
       <tr>
-        <td><%= oi.product.name %></td>
-        <td class="text-center"><%= oi.quantity %></td>
-        <% subtotal = oi.product.price * oi.quantity %>
-        <% total += subtotal %>
-        <td class="text-right"><%= dollar_price(subtotal) %></td>
+        <td><%= @results[0][0] %></td>
+        <td><%= number_to_currency(@results[0][1]) %></td>
+        <td>Select</td>
       </tr>
-      <% end %>
-      <tfoot>
-        <td></td>
-        <td class="text-right"><strong>Total: </strong></td>
-        <td class="text-right"><%= dollar_price(total) %></td>
-      </tfoot>
+      <tr>
+        <td><%= @results[1][0] %></td>
+        <td><%= number_to_currency(@results[1][1]) %></td>
+        <td>Select</td>
+      </tr>
+      <tr>
+        <td><%= @results[2][0] %></td>
+        <td><%= number_to_currency(@results[2][1]) %></td>
+        <td>Select</td>
+        <tr>
+          <td><%= @results[3][0] %></td>
+          <td><%= number_to_currency(@results[3][1]) %></td>
+          <td>Select</td>
+        </tr>
+        <tr>
+          <td><%= @results[4][0] %></td>
+          <td><%= number_to_currency(@results[4][1]) %></td>
+          <td>Select</td>
+        </tr>
+        <tr>
+          <td><%= @results[5][0] %></td>
+          <td><%= number_to_currency(@results[5][1]) %></td>
+          <td>Select</td>
+        </tr>
+      </tr>
+    </thead>
+      <thead>
+        <th class="text-left">Method</th>
+        <th class="text-middle">Cost</th>
+        <th class="text-right">Select</th>
+      </thead>
+      <tr>
+        <td><%= @results[6][0] %></td>
+        <td><%= number_to_currency(@results[6][1]) %></td>
+        <td>Select</td>
+      </tr>
+      <tr>
+        <td><%= @results[7][0] %></td>
+        <td><%= number_to_currency(@results[7][1]) %></td>
+        <td>Select</td>
+      </tr>
+      <tr>
+        <td><%= @results[8][0] %></td>
+        <td><%= number_to_currency(@results[8][1]) %></td>
+        <td>Select</td>
+        <tr>
+          <td><%= @results[9][0] %></td>
+          <td><%= number_to_currency(@results[9][1]) %></td>
+          <td>Select</td>
+        </tr>
+        <tr>
+          <td><%= @results[10][0] %></td>
+          <td><%= number_to_currency(@results[10][1]) %></td>
+          <td>Select</td>
+        </tr>
+        <tr>
+          <td><%= @results[11][0] %></td>
+          <td><%= number_to_currency(@results[11][1]) %></td>
+          <td>Select</td>
+        </tr>
     </table>
   </div>
 </div>
