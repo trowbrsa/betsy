@@ -1,6 +1,7 @@
 <h1 class="xl-top-margin">Checkout</h1>
   <div class="col-sm-6 box-with-shadow">
     <h3>Shipping Options</h3>
+    <%= @results %>
     <%= form_for @order, url: checkout_path, :html => {:class => "form-group"} do |f| %>
       <table class="table table-hover">
         <thead>
