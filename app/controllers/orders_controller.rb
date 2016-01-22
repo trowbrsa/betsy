@@ -65,29 +65,44 @@ class OrdersController < ApplicationController
   end
 
   def checkout
+
     @order = Order.new
     order_items
 
-  # def shipping_estimate(params)
-  #   customer_city = params[:city]
-  #   customer_state = params[:state]
-  #   customer_country = "US"
-  #
-  #   product_info = Order.find(id = params[:id]).products
-  #
-  #   product_info.length.times do |product|
-  #     product.weight
-  #     product.length
-  #     product.height
-  #   end
-  #   #if product has diameter...
-  #
-  #   # put into a giant hash
-  #
-  #   results = HTTParty.get("http://wetsy-ship.herokuapp.com/ship?destination%5Bcity%5D=#{city}&destination%5Bcountry%5D=US&destination%5Bstate%5D=#{state}&destination%5Bzip%5D=#{zip}&origin%5Bcity%5D=#{city}&origin%5Bcountry%5D=#{country}&origin%5Bstate%5D=CA&origin%5Bzip%5D=90210&packages%5B%5D%5Bheight%5D=50&packages%5B%5D%5Blength%5D=20&packages%5B%5D%5Bweight%5D=100&packages%5B%5D%5Bwidth%5D=30"
-  #   # headers: {"Authorization" => "bearer #{carrier_access_token}", 'Accept' => 'application/json' }, format: :json).parsed_response
-  #   #{city}
-  #   #host name as a parameter depending on whether you're working locally our
+    destination = {
+    city: params[:order][:city],
+    state: params[:order][:state],
+    zip: params[:order][:zip],
+    country: "US"
+    }
+
+    products = order_items.keys
+
+
+    origin = {
+    city: Product.find(products[0]).user.city,
+    state: Product.find(products[0]).user.state,
+    zip: Product.find(products[0]).user.zip,
+    country: "US"
+    }
+
+    packages = [
+      {
+        weight: Product.find(products[0]).weight,
+        length: Product.find(products[0]).length,
+        height: Product.find(products[0]).height,
+        width:  Product.find(products[0]).width
+      }
+    ]
+
+    api_information = {origin: origin, destination: destination, packages: packages}
+
+    query = api_information.to_query
+
+    results = HTTParty.get("http://localhost:3001/ship?#{query}")
+
+    raise
+
   end
 
   def cancel
